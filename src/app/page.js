@@ -1,11 +1,45 @@
+import Container from "@/components/common/Container";
+import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
+import ReelsContainer from "@/components/pages/home/ReelsContainer";
+
 export default function Home() {
+  const featuredItems = {
+    news: {
+      heading:
+        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
+      description:
+        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
+      author: "এলেন জোশের প্রতিবেদন",
+      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
+      date: "৯ই জুন, ২০২৫",
+    },
+    reels: [
+      {
+        title:
+          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
+        author: "এলেন জোশের",
+        image:
+          "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
+        date: "৯ই জুন, ২০২৫",
+      },
+    ],
+  };
+
   return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div className="px-4 py-6 sm:px-0">
-        <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 flex items-center justify-center">
-          <p className="text-gray-500 text-xl">Main content area</p>
+    <Container>
+      <div className="grid grid-cols-12 gap-5 min-h-[430px]">
+        <div className="col-span-12 md:col-span-12 lg:col-span-7">
+          <FeaturedNewsCard item={featuredItems?.news} />
+        </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-2">
+          <ReelsContainer items={featuredItems?.reels} />
+        </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-3 items-center justify-center">
+          <div className="w-[320px] h-[100px] bg-amber-300"></div>
+          <div className="w-[300px] h-[250px] bg-amber-400"></div>
+          <div></div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
