@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 
-export default function FeaturedNewsCard({ item }) {
+export default function NewsCard({ item }) {
   return (
     <AspectRatio
       ratio={16 / 9}
@@ -23,13 +23,13 @@ export default function FeaturedNewsCard({ item }) {
           }}
         >
           <div>
-            <h1 className="text-xl md:text-3xl font-extrabold leading-snug inline">
+            <h1 className="text-md md:text-lg font-bold leading-snug inline">
               {item?.heading}
-              <span className="whitespace-nowrap inline-block ml-2 align-middle text-sm font-normal">
+              <span className="whitespace-nowrap inline-block ml-2 align-middle text-xxs font-normal">
                 — {item?.author}
               </span>
             </h1>
-            <p className="text-sm">{item?.description}</p>
+            <p className="text-xsm">{item?.description}</p>
           </div>
           <p className="text-xs whitespace-nowrap">{item?.date}</p>
         </div>
