@@ -17,13 +17,43 @@ export default function Home() {
       date: "৯ই জুন, ২০২৫",
     },
     reels: [
+      // {
+      //   title:
+      //     "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
+      //   author: "এলেন জোশের",
+      //   image:
+      //     "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
+      //   date: "৯ই জুন, ২০২৫",
+      // },
       {
-        title:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        author: "এলেন জোশের",
+        title: "Direct Video Example",
+        author: "Sample Author",
+        date: "May 22, 2025",
         image:
           "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
-        date: "৯ই জুন, ২০২৫",
+        videoUrl:
+          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      },
+      {
+        title: "YouTube Video Example",
+        author: "YouTube Creator",
+        date: "May 21, 2025",
+        youtubeId: "ogfYd705cRs",
+      },
+      {
+        title: "Another Direct Video",
+        author: "Video Creator",
+        date: "May 20, 2025",
+        image:
+          "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
+        videoUrl:
+          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      },
+      {
+        title: "Another YouTube Video",
+        author: "Content Creator",
+        date: "May 19, 2025",
+        youtubeId: "aqz-KE-bpKQ",
       },
     ],
   };
@@ -40,8 +70,7 @@ export default function Home() {
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-3 items-center justify-center">
           <SmallRecAdBanner />
-         <SquareAd />
-          <div></div>
+          <SquareAd />
         </div>
       </div>
     </Container>
