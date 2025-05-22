@@ -358,15 +358,15 @@ export default function ReelCard({
       <div className="flex flex-col gap-1 justify-between pt-2 bg-white">
         <h1 className="text-xxs leading-snug inline truncate">
           {item?.title}
-          <span className="inline-block ml-2 align-middle text-xxs font-thin text-gray-500">
+          <span className="inline-block ml-2 align-middle text-xxs font-thin">
             — {item?.author}
           </span>
         </h1>
         <div className="mt-1 flex items-center justify-between w-full">
-          <button className="text-xxs cursor-pointer hover:underline text-gray-700">
+          <button className="text-xxs cursor-pointer hover:underline ">
             আরও দেখুন
           </button>
-          <p className="text-xxs whitespace-nowrap text-gray-500">
+          <p className="text-xxs whitespace-nowrap">
             {item?.date}
           </p>
         </div>

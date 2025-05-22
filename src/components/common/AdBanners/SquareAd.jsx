@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function SquareAd() {
   return (
-    <div className="w-[300px] h-[250px] bg-amber-400 mx-auto my-6">
+    <div className="w-[300px] h-[250px]">
       <Image
         src="/assets/adImages/square.png"
         alt="Square Ad Banner"

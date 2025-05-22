@@ -1,9 +1,14 @@
 import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
 import SmallRecAdBanner from "@/components/common/AdBanners/SmallRecAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
+import CategoryHeader from "@/components/common/CategoryHeader";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
+import BreakingNews from "@/components/pages/home/BreakingNews";
+import LatestNews from "@/components/pages/home/LatestNews";
 import ReelsContainer from "@/components/pages/home/ReelsContainer";
+import SpecialNews from "@/components/pages/home/SpecialNews";
+import VideoGallery from "@/components/pages/home/VideoGallery";
 
 export default function Home() {
   const featuredItems = {
@@ -73,6 +78,21 @@ export default function Home() {
           <SquareAd />
         </div>
       </div>
+      <LatestNews />
+      <CategoryHeader title="ব্রেকিং" />
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12 md:col-span-6 lg:col-span-9">
+          <BreakingNews />
+        </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-center">
+          <SquareAd />
+          <SquareAd />
+          <SquareAd />
+        </div>
+      </div>
+      <VideoGallery />
+      <LongAdBanner />
+      <SpecialNews />
     </Container>
   );
 }
