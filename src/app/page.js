@@ -1,3 +1,6 @@
+import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
+import SmallRecAdBanner from "@/components/common/AdBanners/SmallRecAdBanner";
+import SquareAd from "@/components/common/AdBanners/SquareAd";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import ReelsContainer from "@/components/pages/home/ReelsContainer";
@@ -27,6 +30,7 @@ export default function Home() {
 
   return (
     <Container>
+      <LongAdBanner />
       <div className="grid grid-cols-12 gap-5 min-h-[430px]">
         <div className="col-span-12 md:col-span-12 lg:col-span-7">
           <FeaturedNewsCard item={featuredItems?.news} />
@@ -35,8 +39,8 @@ export default function Home() {
           <ReelsContainer items={featuredItems?.reels} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-3 items-center justify-center">
-          <div className="w-[320px] h-[100px] bg-amber-300"></div>
-          <div className="w-[300px] h-[250px] bg-amber-400"></div>
+          <SmallRecAdBanner />
+         <SquareAd />
           <div></div>
         </div>
       </div>
