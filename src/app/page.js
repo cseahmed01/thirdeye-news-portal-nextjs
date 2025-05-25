@@ -6,6 +6,7 @@ import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import BreakingNews from "@/components/pages/home/BreakingNews";
 import LatestNews from "@/components/pages/home/LatestNews";
+import LocalNewsFilter from "@/components/pages/home/LocalNewsFilter";
 import ReelsContainer from "@/components/pages/home/ReelsContainer";
 import SpecialNews from "@/components/pages/home/SpecialNews";
 import VideoGallery from "@/components/pages/home/VideoGallery";
@@ -86,7 +87,7 @@ export default function Home() {
           <BreakingNews />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-center">
-          <SquareAd />
+          <LocalNewsFilter />
           <SquareAd />
           <SquareAd />
         </div>
