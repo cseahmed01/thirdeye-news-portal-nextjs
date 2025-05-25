@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -139,6 +138,52 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navContainerRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [showButtons, setShowButtons] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Check if scrolling is needed and update button states
+  const checkScrollability = () => {
+    if (navContainerRef.current) {
+      const container = navContainerRef.current;
+      const needsScrolling = container.scrollWidth > container.clientWidth;
+
+      setShowButtons(needsScrolling);
+
+      if (needsScrolling) {
+        setCanScrollLeft(container.scrollLeft > 0);
+        setCanScrollRight(
+          container.scrollLeft < container.scrollWidth - container.clientWidth
+        );
+      }
+    }
+  };
+
+  // Initial check and resize observer
+  useEffect(() => {
+    checkScrollability();
+
+    const resizeObserver = new ResizeObserver(() => {
+      checkScrollability();
+    });
+
+    if (navContainerRef.current) {
+      resizeObserver.observe(navContainerRef.current);
+    }
+
+    // Also listen for window resize
+    window.addEventListener("resize", checkScrollability);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", checkScrollability);
+    };
+  }, []);
+
+  // Update button states on scroll
+  const handleScroll = () => {
+    checkScrollability();
+  };
 
   const scrollLeft = () => {
     if (navContainerRef.current) {
@@ -181,29 +226,49 @@ export default function Navbar() {
   return (
     <nav>
       <Container className="relative">
-        <div className="flex justify-between border-b ">
+        <div className="flex justify-between border-b">
           {/* Desktop menu with horizontal scrolling */}
           <div className="hidden md:flex md:items-center md:justify-between md:w-full relative">
             {/* Navigation buttons and scrollable container */}
-            <div className="flex justify-between items-center w-full p-4">
-              {/* Previous button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="mr-2 flex-shrink-0 z-10 cursor-pointer hover:bg-gray-100"
-                onClick={scrollLeft}
-              >
-                <ChevronLeft size={32} />
-                <span className="sr-only">Scroll left</span>
-              </Button>
+            <div
+              className={cn(
+                "flex items-center w-full p-4",
+                showButtons ? "justify-between" : "justify-center"
+              )}
+            >
+              {/* Previous button - only show if needed and can scroll left */}
+              {showButtons && (
+                <button
+                  className={cn(
+                    "mr-2 flex-shrink-0 z-10 p-1 cursor-pointer hover:bg-gray-100 transition-opacity duration-200",
+                    canScrollLeft
+                      ? "opacity-100"
+                      : "opacity-50 cursor-not-allowed"
+                  )}
+                  onClick={scrollLeft}
+                  disabled={!canScrollLeft}
+                >
+                  <ChevronLeft size={24} />
+                  <span className="sr-only">Scroll left</span>
+                </button>
+              )}
 
               {/* Scrollable navigation container */}
               <div
                 ref={navContainerRef}
-                className="flex-grow overflow-x-auto scrollbar-hide scroll-smooth max-w-5xl"
+                className={cn(
+                  "overflow-x-auto scrollbar-hide scroll-smooth",
+                  showButtons ? "flex-grow max-w-5xl" : "flex-grow"
+                )}
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                onScroll={handleScroll}
               >
-                <div className="flex space-x-7.5 px-1">
+                <div
+                  className={cn(
+                    "flex px-1",
+                    showButtons ? "space-x-7" : "space-x-7 justify-center"
+                  )}
+                >
                   {menuItems.map((item) => (
                     <NavItem
                       key={item.title}
@@ -219,16 +284,22 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Next button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="ml-2 flex-shrink-0 z-10 cursor-pointer hover:bg-gray-100"
-                onClick={scrollRight}
-              >
-                <ChevronRight size={32} />
-                <span className="sr-only">Scroll right</span>
-              </Button>
+              {/* Next button - only show if needed and can scroll right */}
+              {showButtons && (
+                <button
+                  className={cn(
+                    "ml-2 flex-shrink-0 z-10 p-1 cursor-pointer hover:bg-gray-100 transition-opacity duration-200",
+                    canScrollRight
+                      ? "opacity-100"
+                      : "opacity-50 cursor-not-allowed"
+                  )}
+                  onClick={scrollRight}
+                  disabled={!canScrollRight}
+                >
+                  <ChevronRight size={24} />
+                  <span className="sr-only">Scroll right</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -302,7 +373,7 @@ function NavItem({ item, isOpen, onToggle }) {
           <button
             ref={buttonRef}
             data-dropdown-button={item.title}
-            className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -322,7 +393,7 @@ function NavItem({ item, isOpen, onToggle }) {
             createPortal(
               <div
                 data-dropdown-content={item.title}
-                className="fixed bg-white rounded-md shadow-lg z-[9999] pointer-events-auto"
+                className="fixed bg-white rounded-md shadow-lg z-[9999] pointer-events-auto border"
                 style={{
                   top: `${dropdownPosition.top}px`,
                   left: `${dropdownPosition.left}px`,
@@ -341,7 +412,7 @@ function NavItem({ item, isOpen, onToggle }) {
       ) : (
         <Link
           href={item.href}
-          className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
         >
           {item.title}
         </Link>
@@ -397,7 +468,7 @@ function SubmenuItem({ item }) {
             hasSubmenu &&
             createPortal(
               <div
-                className="fixed bg-white rounded-md shadow-lg z-[9999] pointer-events-auto"
+                className="fixed bg-white rounded-md shadow-lg z-[9999] pointer-events-auto border"
                 style={{
                   top: `${submenuPosition.top}px`,
                   left: `${submenuPosition.left}px`,

@@ -6,6 +6,7 @@ import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import BreakingNews from "@/components/pages/home/BreakingNews";
 import LatestNews from "@/components/pages/home/LatestNews";
+import LocalNewsFilter from "@/components/pages/home/LocalNewsFilter";
 import ReelsContainer from "@/components/pages/home/ReelsContainer";
 import SpecialNews from "@/components/pages/home/SpecialNews";
 import VideoGallery from "@/components/pages/home/VideoGallery";
@@ -22,14 +23,6 @@ export default function Home() {
       date: "৯ই জুন, ২০২৫",
     },
     reels: [
-      // {
-      //   title:
-      //     "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      //   author: "এলেন জোশের",
-      //   image:
-      //     "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
-      //   date: "৯ই জুন, ২০২৫",
-      // },
       {
         title: "Direct Video Example",
         author: "Sample Author",
@@ -86,7 +79,7 @@ export default function Home() {
           <BreakingNews />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-center">
-          <SquareAd />
+          <LocalNewsFilter />
           <SquareAd />
           <SquareAd />
         </div>
