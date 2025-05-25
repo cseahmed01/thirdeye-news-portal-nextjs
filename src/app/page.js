@@ -23,14 +23,6 @@ export default function Home() {
       date: "৯ই জুন, ২০২৫",
     },
     reels: [
-      // {
-      //   title:
-      //     "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      //   author: "এলেন জোশের",
-      //   image:
-      //     "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
-      //   date: "৯ই জুন, ২০২৫",
-      // },
       {
         title: "Direct Video Example",
         author: "Sample Author",
