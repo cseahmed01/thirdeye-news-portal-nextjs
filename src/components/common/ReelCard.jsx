@@ -14,8 +14,13 @@ export default function ReelCard({
   isMuted = true,
   onMuteToggle,
   titleInside = false, // If true, title will be inside the video container
+  // New props for single-video-playing functionality
+  isPlaying = false,
+  onVideoPlay,
+  onVideoPause,
+  onReelsPage = false, // If true, this is used in the Reels page
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [internalIsPlaying, setInternalIsPlaying] = useState(false);
   const [showThumbnail, setShowThumbnail] = useState(true);
   const [isApiReady, setIsApiReady] = useState(false);
   const [isYouTubeVideo, setIsYouTubeVideo] = useState(false);
@@ -104,7 +109,24 @@ export default function ReelCard({
         events: {
           onStateChange: (event) => {
             // Update playing state based on YouTube player state
-            setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+            const isCurrentlyPlaying =
+              event.data === window.YT.PlayerState.PLAYING;
+            setInternalIsPlaying(isCurrentlyPlaying);
+
+            // Notify parent component about play/pause state (for grid page) - only if callbacks exist
+            if (
+              isCurrentlyPlaying &&
+              onVideoPlay &&
+              typeof index !== "undefined"
+            ) {
+              onVideoPlay(index);
+            } else if (
+              !isCurrentlyPlaying &&
+              onVideoPause &&
+              typeof index !== "undefined"
+            ) {
+              onVideoPause(index);
+            }
           },
           onReady: (event) => {
             // Store the player instance directly
@@ -114,7 +136,12 @@ export default function ReelCard({
             };
 
             event.target.playVideo();
-            setIsPlaying(true);
+            setInternalIsPlaying(true);
+
+            // Notify parent that this video is playing (for grid page) - only if callback exists
+            if (onVideoPlay && typeof index !== "undefined") {
+              onVideoPlay(index);
+            }
 
             if (isMuted) {
               event.target.mute();
@@ -130,7 +157,98 @@ export default function ReelCard({
     } catch (error) {
       console.error("Error initializing YouTube player:", error);
     }
-  }, [isApiReady, showThumbnail, isYouTubeVideo, item, isMuted]);
+  }, [
+    isApiReady,
+    showThumbnail,
+    isYouTubeVideo,
+    item,
+    isMuted,
+    index,
+    onVideoPlay,
+    onVideoPause,
+  ]);
+
+  // Set up event listeners for HTML5 video
+  useEffect(() => {
+    if (isYouTubeVideo || !videoRef.current) return;
+
+    const video = videoRef.current;
+
+    const handlePlay = () => {
+      setInternalIsPlaying(true);
+      // Notify parent component about play state (for grid page) - only if callback exists
+      if (onVideoPlay && typeof index !== "undefined") {
+        onVideoPlay(index);
+      }
+    };
+
+    const handlePause = () => {
+      setInternalIsPlaying(false);
+      // Notify parent component about pause state (for grid page) - only if callback exists
+      if (onVideoPause && typeof index !== "undefined") {
+        onVideoPause(index);
+      }
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+    };
+  }, [isYouTubeVideo, index, onVideoPlay, onVideoPause]);
+
+  // Handle video ended event for HTML5 videos
+  useEffect(() => {
+    if (isYouTubeVideo || !videoRef.current) return;
+
+    const video = videoRef.current;
+
+    const handleEnded = () => {
+      setInternalIsPlaying(false);
+      // Notify parent component - only if callback exists
+      if (onVideoPause && typeof index !== "undefined") {
+        onVideoPause(index);
+      }
+    };
+
+    video.addEventListener("ended", handleEnded);
+
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, [isYouTubeVideo, index, onVideoPause]);
+
+  // Handle external play/pause control from parent (for grid page)
+  useEffect(() => {
+    // Only apply external control if isPlaying prop is explicitly provided and callbacks exist (grid page)
+    if (
+      onVideoPlay &&
+      onVideoPause &&
+      typeof isPlaying === "boolean" &&
+      !isPlaying &&
+      internalIsPlaying
+    ) {
+      // This video should be paused
+      try {
+        if (isYouTubeVideo) {
+          if (
+            youtubePlayerRef.current &&
+            youtubePlayerRef.current.player &&
+            typeof youtubePlayerRef.current.player.pauseVideo === "function"
+          ) {
+            youtubePlayerRef.current.player.pauseVideo();
+          }
+        } else if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      } catch (error) {
+        console.error("Error pausing video:", error);
+      }
+      setInternalIsPlaying(false);
+    }
+  }, [isPlaying, internalIsPlaying, isYouTubeVideo, onVideoPlay, onVideoPause]);
 
   // Update YouTube player mute state when isMuted prop changes
   useEffect(() => {
@@ -159,9 +277,9 @@ export default function ReelCard({
     }
   }, [isMuted]);
 
-  // Pause video when slide changes and this card is not active
+  // Pause video when slide changes and this card is not active (for carousel)
   useEffect(() => {
-    if (!isActive && isPlaying) {
+    if (!isActive && internalIsPlaying) {
       try {
         if (isYouTubeVideo) {
           if (
@@ -177,9 +295,9 @@ export default function ReelCard({
       } catch (error) {
         console.error("Error pausing video:", error);
       }
-      setIsPlaying(false);
+      setInternalIsPlaying(false);
     }
-  }, [isActive, isPlaying, isYouTubeVideo]);
+  }, [isActive, internalIsPlaying, isYouTubeVideo]);
 
   const togglePlayPause = () => {
     if (isYouTubeVideo) {
@@ -195,30 +313,27 @@ export default function ReelCard({
           youtubePlayerRef.current.player &&
           typeof youtubePlayerRef.current.player.getPlayerState === "function"
         ) {
-          if (isPlaying) {
+          if (internalIsPlaying) {
             youtubePlayerRef.current.player.pauseVideo();
           } else {
             youtubePlayerRef.current.player.playVideo();
           }
         } else {
           console.log("YouTube player not fully initialized yet");
-          // If player isn't ready, just update the UI state
-          setIsPlaying(!isPlaying);
         }
       } catch (error) {
         console.error("Error controlling YouTube player:", error);
-        // Fallback to just updating the UI state
-        setIsPlaying(!isPlaying);
       }
     } else {
-      // Direct video handling remains the same
+      // Direct video handling - let the event listeners handle state updates
       if (videoRef.current) {
-        if (isPlaying) {
+        if (internalIsPlaying) {
           videoRef.current.pause();
         } else {
-          videoRef.current.play();
+          videoRef.current.play().catch((error) => {
+            console.error("Error playing video:", error);
+          });
         }
-        setIsPlaying(!isPlaying);
       }
     }
   };
@@ -242,7 +357,10 @@ export default function ReelCard({
 
   return (
     <div className={cn("relative overflow-hidden transition-all", className)}>
-      <AspectRatio ratio={9 / 16} className="bg-black overflow-hidden relative">
+      <AspectRatio
+        ratio={9 / 16}
+        className="bg-black overflow-hidden relative group"
+      >
         {isYouTubeVideo ? (
           // YouTube Video Player
           <>
@@ -278,7 +396,7 @@ export default function ReelCard({
                   className="w-full h-full cursor-pointer"
                   onClick={togglePlayPause}
                 />
-                {!isPlaying && (
+                {!internalIsPlaying && (
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     <Button
                       variant="ghost"
@@ -320,12 +438,11 @@ export default function ReelCard({
                 "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
               }
               poster={item?.image}
-              onEnded={() => setIsPlaying(false)}
               playsInline
               onClick={togglePlayPause}
               muted={isMuted}
             />
-            {!isPlaying && !isYouTubeVideo && (
+            {!internalIsPlaying && !isYouTubeVideo && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <Button
                   variant="ghost"
@@ -343,7 +460,7 @@ export default function ReelCard({
             <Button
               variant="ghost"
               size="icon"
-              className="absolute bottom-2 right-2 h-8 w-8 rounded-full bg-black/50 text-white hover:bg-black/70 z-20"
+              className="absolute bottom-2 right-2 h-8 w-8 rounded-full bg-black/50 text-white cursor-pointer md:opacity-0 hover:bg-black/70 group-hover:opacity-100 z-20 transition-transform duration-300 ease-in-out"
               onClick={handleMuteToggle}
             >
               {isMuted ? (
@@ -355,27 +472,56 @@ export default function ReelCard({
             </Button>
           </>
         )}
+
+        {/* Title inside video container if titleInside is true */}
+        {titleInside && (
+          <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-gradient-to-t from-black/70 to-transparent z-10">
+            <div className="flex flex-col gap-1 text-white">
+              <h1 className="text-xsm leading-snug inline truncate text-wrap">
+                {item?.title}
+                <span className="inline-block ml-2 align-middle text-xxs font-thin">
+                  — {item?.author}
+                </span>
+              </h1>
+              <p className="text-xxs whitespace-nowrap">{item?.date}</p>
+            </div>
+          </div>
+        )}
       </AspectRatio>
-      <div
-        className={`flex flex-col gap-1 justify-between   ${
-          titleInside ? "absolute bottom-0 p-2.5 text-white" : "pt-2 text-black"
-        }`}
-      >
-        <h1 className="text-xsm leading-snug inline truncate text-wrap">
-          {item?.title}
-          <span className="inline-block ml-2 align-middle text-xxs font-thin">
-            — {item?.author}
-          </span>
-        </h1>
-        <div className="flex items-center justify-between w-full">
-          {!titleInside && (
-            <button className="text-xxs cursor-pointer hover:underline ">
-              আরও দেখুন
-            </button>
-          )}
-          <p className="text-xxs whitespace-nowrap">{item?.date}</p>
+
+      {/* Title outside video container if titleInside is false */}
+      {!titleInside && (
+        <div className="flex flex-col gap-1 justify-between pt-2 text-black">
+          <h1
+            className={`${
+              onReelsPage ? "text-xl font-semibold" : "text-xsm"
+            }  leading-snug inline truncate text-wrap`}
+          >
+            {item?.title}
+            <span
+              className={`inline-block ml-2 align-middle  ${
+                onReelsPage ? "text-sm font-normal" : "text-xxs font-thin"
+              }`}
+            >
+              — {item?.author}
+            </span>
+          </h1>
+          <div className="flex items-center justify-between w-full">
+            {!onReelsPage && (
+              <button className="text-xxs cursor-pointer hover:underline">
+                আরও দেখুন
+              </button>
+            )}
+            <p
+              className={`${
+                onReelsPage ? "text-xs" : "text-xxs"
+              } whitespace-nowrap`}
+            >
+              {item?.date}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
