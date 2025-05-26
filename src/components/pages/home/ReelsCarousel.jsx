@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 
-export default function ReelsCarousel({ items, className }) {
+export default function ReelsCarousel({ items, className, titleInside=false }) {
   const [api, setApi] = useState();
   const [activeIndex, setActiveIndex] = useState(0);
   const [count, setCount] = useState(0);
@@ -80,6 +80,7 @@ export default function ReelsCarousel({ items, className }) {
                   index={index}
                   isMuted={isMuted}
                   onMuteToggle={handleMuteToggle}
+                  titleInside={titleInside}
                 />
               </div>
             </CarouselItem>

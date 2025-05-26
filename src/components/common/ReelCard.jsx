@@ -13,6 +13,7 @@ export default function ReelCard({
   className,
   isMuted = true,
   onMuteToggle,
+  titleInside = false, // If true, title will be inside the video container
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showThumbnail, setShowThumbnail] = useState(true);
@@ -240,7 +241,7 @@ export default function ReelCard({
   };
 
   return (
-    <div className={cn("overflow-hidden transition-all", className)}>
+    <div className={cn("relative overflow-hidden transition-all", className)}>
       <AspectRatio ratio={9 / 16} className="bg-black overflow-hidden relative">
         {isYouTubeVideo ? (
           // YouTube Video Player
@@ -355,20 +356,24 @@ export default function ReelCard({
           </>
         )}
       </AspectRatio>
-      <div className="flex flex-col gap-1 justify-between pt-2 bg-white">
-        <h1 className="text-xxs leading-snug inline truncate">
+      <div
+        className={`flex flex-col gap-1 justify-between   ${
+          titleInside ? "absolute bottom-0 p-2.5 text-white" : "pt-2 text-black"
+        }`}
+      >
+        <h1 className="text-xsm leading-snug inline truncate text-wrap">
           {item?.title}
           <span className="inline-block ml-2 align-middle text-xxs font-thin">
             — {item?.author}
           </span>
         </h1>
-        <div className="mt-1 flex items-center justify-between w-full">
-          <button className="text-xxs cursor-pointer hover:underline ">
-            আরও দেখুন
-          </button>
-          <p className="text-xxs whitespace-nowrap">
-            {item?.date}
-          </p>
+        <div className="flex items-center justify-between w-full">
+          {!titleInside && (
+            <button className="text-xxs cursor-pointer hover:underline ">
+              আরও দেখুন
+            </button>
+          )}
+          <p className="text-xxs whitespace-nowrap">{item?.date}</p>
         </div>
       </div>
     </div>
