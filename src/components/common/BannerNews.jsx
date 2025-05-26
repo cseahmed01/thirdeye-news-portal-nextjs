@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function BannerNews({ item, fullWidth = false }) {
   return (
-    <div className="grid grid-cols-12 gap-3.5 justify-between group cursor-pointer">
+    <div className="grid grid-cols-12 gap-3.5 justify-between items-center group cursor-pointer">
       <div className="col-span-12 md:col-span-8 order-2 md:order-1">
         <div className="relative">
           <h1 className="text-xl md:text-4xl font-normal md:leading-[56px] inline">

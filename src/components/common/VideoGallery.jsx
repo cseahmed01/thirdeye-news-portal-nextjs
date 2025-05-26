@@ -85,7 +85,7 @@ export default function VideoGallery() {
   ];
   return (
     <>
-      <CategoryHeader title="ভিডিও গ্যালারি" />
+      <CategoryHeader title="ভিডিও গ্যালারি" bt={true} />
       <Carousel
         opts={{
           align: "start",

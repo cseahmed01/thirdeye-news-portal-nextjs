@@ -4,12 +4,12 @@ import SquareAd from "@/components/common/AdBanners/SquareAd";
 import CategoryHeader from "@/components/common/CategoryHeader";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
+import VideoGallery from "@/components/common/VideoGallery";
 import BreakingNews from "@/components/pages/home/BreakingNews";
 import LatestNews from "@/components/pages/home/LatestNews";
 import LocalNewsFilter from "@/components/pages/home/LocalNewsFilter";
-import ReelsContainer from "@/components/pages/home/ReelsContainer";
+import ReelsContainer from "@/components/pages/home/ReelsCarousel";
 import SpecialNews from "@/components/pages/home/SpecialNews";
-import VideoGallery from "@/components/pages/home/VideoGallery";
 
 export default function Home() {
   const featuredItems = {
@@ -54,13 +54,12 @@ export default function Home() {
         youtubeId: "aqz-KE-bpKQ",
       },
     ],
-
   };
 
   return (
     <Container>
       <LongAdBanner />
-      <div className="grid grid-cols-12 gap-5 min-h-[430px]">
+      <div className="grid grid-cols-12 gap-5 min-h-[430px] items-center">
         <div className="col-span-12 md:col-span-12 lg:col-span-7">
           <FeaturedNewsCard item={featuredItems?.news} />
         </div>

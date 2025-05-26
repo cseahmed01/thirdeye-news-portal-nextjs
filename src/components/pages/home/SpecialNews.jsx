@@ -51,8 +51,8 @@ export default function SpecialNews() {
         ))}
       </div>
       <SpecialFeatured />
-      <div className="flex items-center justify-between mb-6">
-        <div className="w-[35%]">
+      <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-6">
+        <div className="md:w-[35%]">
           <div className="">
             <div className="relative">
               <h1 className="text-xl md:text-4xl font-normal inline">
@@ -94,12 +94,12 @@ export default function SpecialNews() {
             </p>
           </div>
         </div>
-        <div className="w-[30%] flex flex-col items-center justify-center gap-4">
+        <div className="md:w-[30%] flex flex-col items-center justify-center gap-4">
           <SquareAd />
           <SquareAd />
         </div>
 
-        <div className="w-[35%]">
+        <div className="md:w-[35%]">
           <div className="">
             <div className="relative">
               <h1 className="text-xl md:text-4xl font-normal inline">
