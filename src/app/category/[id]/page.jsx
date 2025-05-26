@@ -98,19 +98,19 @@ export default async function page({ params }) {
   return (
     <Container>
       <CategoryTitle title={"সর্বশেষ"} />
-      <div className="grid grid-cols-12 gap-4.5 mb-6 items-center">
-        <div className="col-span-7">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4.5 mb-6 items-center">
+        <div className="md:col-span-7">
           <FeaturedNewsCard item={data?.news[0]} />
         </div>
-        <div className="col-span-3 flex flex-col gap-3 items-center justify-center">
+        <div className="md:col-span-3 flex flex-col gap-3 items-center justify-center">
           <SquareAd />
           <SmallRecAdBanner />
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <ReelsCarousel items={data?.reels} titleInside={true} />
         </div>
       </div>
-      <div className="flex items-center justify-center gap-4 mb-6">
+      <div className="hidden md:flex items-center justify-center gap-4 mb-6">
         <RecAdBanner />
         <RecAdBanner />
       </div>

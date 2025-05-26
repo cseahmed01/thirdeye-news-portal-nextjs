@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white py-4">
       <Container>
-        <div className="flex gap-[100px] justify-center items-center">
+        <div className="flex flex-col md:flex-row gap-[100px] justify-center items-center">
           <h1 className="text-4xl p-10 font-bold">পত্রিকার নাম</h1>
           <p className="lg:w-3/5">
             লোরেম ইপসাম ডোলর সিট আমেট, কনসেকটেটুর আদিপিসিং এলিট। সিট এৎ সেদ ইন
@@ -15,8 +15,8 @@ export default function Footer() {
             প্রেটিয়াম মোরবি পেনাটিবাস আউটর ম্যাটিস মারুরস উট সিট।
           </p>
         </div>
-        <div className="flex border-t border-b my-5">
-          <div className="w-[50%] flex justify-between border-r pt-10 pb-5.5 pr-20">
+        <div className="flex flex-col md:flex-row border-t border-b my-5">
+          <div className="w-[50%] flex flex-wrap justify-between border-r pt-10 pb-5.5 pr-20">
             <div className="flex flex-col gap-[60px] text-lg">
               <h6 className="text-2xl font-bold">সর্বশেষ সংবাদ</h6>
               <Link href={"/"}>বিশ্ব সংবাদ</Link>
