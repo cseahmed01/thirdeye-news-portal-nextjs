@@ -232,7 +232,7 @@ export default function Navbar() {
             {/* Navigation buttons and scrollable container */}
             <div
               className={cn(
-                "flex items-center w-full p-4",
+                "flex items-center w-full py-4 px-3",
                 showButtons ? "justify-between" : "justify-center"
               )}
             >

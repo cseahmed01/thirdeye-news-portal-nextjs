@@ -146,10 +146,10 @@ export default function FeaturedNavs() {
   };
 
   return (
-    <Container className="px-4 sm:px-6 lg:px-8 relative">
+    <Container className="relative mt-2">
       <div className="flex justify-between">
         {/* Desktop featured bar with horizontal scrolling */}
-        <div className="hidden md:flex md:items-center md:justify-between md:w-full relative mt-2">
+        <div className="hidden md:flex md:items-center md:justify-between md:w-full relative">
           {/* Navigation buttons and scrollable container */}
           <div
             className={cn(
