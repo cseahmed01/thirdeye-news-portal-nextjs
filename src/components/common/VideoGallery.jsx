@@ -1,4 +1,4 @@
-import CategoryHeader from "@/components/common/CategoryHeader";
+import SectionTitle from "@/components/common/SectionTitle";
 import VideoCard from "@/components/common/VideoCard";
 import {
   Carousel,
@@ -85,7 +85,7 @@ export default function VideoGallery() {
   ];
   return (
     <>
-      <CategoryHeader title="ভিডিও গ্যালারি" bt={true} />
+      <SectionTitle title="ভিডিও গ্যালারি" bt={true} />
       <Carousel
         opts={{
           align: "start",

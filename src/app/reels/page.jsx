@@ -4,9 +4,9 @@ import { useCallback, useState } from "react";
 import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
 import RecAdBanner from "@/components/common/AdBanners/RecAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
+import CategoryTitle from "@/components/common/CategoryTitle";
 import Container from "@/components/common/Container";
 import ReelCard from "@/components/common/ReelCard";
-import CategoryTitle from "@/components/pages/category/CategoryTitle";
 
 export default function page() {
   const [isMuted, setIsMuted] = useState(true);

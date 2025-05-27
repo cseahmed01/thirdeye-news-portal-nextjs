@@ -2,10 +2,10 @@ import RecAdBanner from "@/components/common/AdBanners/RecAdBanner";
 import SmallRecAdBanner from "@/components/common/AdBanners/SmallRecAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
 import BannerNews from "@/components/common/BannerNews";
+import CategoryTitle from "@/components/common/CategoryTitle";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import VideoGallery from "@/components/common/VideoGallery";
-import CategoryTitle from "@/components/pages/category/CategoryTitle";
 import ReelsCarousel from "@/components/pages/home/ReelsCarousel";
 
 export default async function page({ params }) {

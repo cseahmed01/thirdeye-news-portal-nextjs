@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function RecAdBanner() {
   return (
-    <div className="w-[600px] h-[160px]">
+    <div className="overflow-hidden relative">
       <Image
         src="/assets/adImages/smallRectangle.png"
         alt="Long Ad Banner"
