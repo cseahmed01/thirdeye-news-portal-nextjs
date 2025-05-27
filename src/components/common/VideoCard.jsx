@@ -1,4 +1,3 @@
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import HeroVideoDialog from "../magicui/hero-video-dialog";
 
 export default function VideoCard({

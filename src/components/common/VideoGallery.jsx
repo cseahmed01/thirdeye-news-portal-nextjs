@@ -9,80 +9,144 @@ import {
 } from "@/components/ui/carousel";
 
 export default function VideoGallery() {
-  const data = [
+  const videoData = [
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "আল-জাজিরা নিউজ",
+      date: "May 21, 2025",
+      youtubeId: "AsrDK5VCHOw",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "আল-জাজিরা নিউজ",
+      date: "May 21, 2025",
+      youtubeId: "AsrDK5VCHOw",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "আল-জাজিরা নিউজ",
+      date: "May 21, 2025",
+      youtubeId: "AsrDK5VCHOw",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "আল-জাজিরা নিউজ",
+      date: "May 21, 2025",
+      youtubeId: "AsrDK5VCHOw",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "আল-জাজিরা নিউজ",
+      date: "May 21, 2025",
+      youtubeId: "AsrDK5VCHOw",
+    },
+    {
+      title:
+        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
+      author: "এলেন জোশের",
+      date: "May 22, 2025",
+      image:
+        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
   ];
+
   return (
     <>
       <SectionTitle title="ভিডিও গ্যালারি" bt={true} />
@@ -91,12 +155,19 @@ export default function VideoGallery() {
           align: "start",
           loop: true,
         }}
-        className="w-full pb-9 relative"
+        className="w-full pb-9"
       >
-        <CarouselContent>
-          {data.map((item, index) => (
+        <CarouselContent className="">
+          {videoData?.map((video, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <VideoCard item={item} />
+              <VideoCard
+                title={video.title}
+                author={video.author}
+                date={video.date}
+                image={video.image}
+                videoUrl={video.videoUrl}
+                youtubeId={video.youtubeId}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
