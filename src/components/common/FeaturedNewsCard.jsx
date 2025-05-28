@@ -5,7 +5,7 @@ export default function FeaturedNewsCard({ item }) {
   return (
     <AspectRatio
       ratio={16 / 9}
-      className="bg-muted cursor-pointer group overflow-hidden"
+      className="bg-muted cursor-pointer group overflow-hidden select-none"
     >
       <div className="relative w-full h-full">
         <Image
