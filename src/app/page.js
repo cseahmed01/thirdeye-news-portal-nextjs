@@ -1,9 +1,9 @@
 import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
 import SmallRecAdBanner from "@/components/common/AdBanners/SmallRecAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
-import CategoryHeader from "@/components/common/CategoryHeader";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
+import SectionTitle from "@/components/common/SectionTitle";
 import VideoGallery from "@/components/common/VideoGallery";
 import BreakingNews from "@/components/pages/home/BreakingNews";
 import LatestNews from "@/components/pages/home/LatestNews";
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </div>
       <LatestNews />
-      <CategoryHeader title="ব্রেকিং" />
+      <SectionTitle title="ব্রেকিং" />
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-6 lg:col-span-9">
           <BreakingNews />

@@ -1,5 +1,5 @@
-import CategoryHeader from "@/components/common/CategoryHeader";
 import NewsCard from "@/components/common/NewsCard";
+import SectionTitle from "@/components/common/SectionTitle";
 import {
   Carousel,
   CarouselContent,
@@ -85,7 +85,7 @@ export default function LatestNews() {
   ];
   return (
     <>
-      <CategoryHeader title="সাম্প্রতিক" />
+      <SectionTitle title="সাম্প্রতিক" />
       <Carousel
         opts={{
           align: "start",

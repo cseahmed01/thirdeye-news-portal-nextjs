@@ -1,6 +1,6 @@
 import SquareAd from "@/components/common/AdBanners/SquareAd";
 import BannerNews from "@/components/common/BannerNews";
-import CategoryHeader from "@/components/common/CategoryHeader";
+import SectionTitle from "@/components/common/SectionTitle";
 import SpecialFeatured from "./SpecialFeatured";
 
 export default function SpecialNews() {
@@ -44,7 +44,7 @@ export default function SpecialNews() {
   ];
   return (
     <>
-      <CategoryHeader title={"বিশেষ"} />
+      <SectionTitle title={"বিশেষ"} />
       <div className="flex flex-col w-full gap-6">
         {data?.map((item, index) => (
           <BannerNews key={index} item={item} fullWidth />

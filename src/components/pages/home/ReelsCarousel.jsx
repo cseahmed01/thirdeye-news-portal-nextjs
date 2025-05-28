@@ -11,7 +11,11 @@ import {
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 
-export default function ReelsCarousel({ items, className, titleInside=false }) {
+export default function ReelsCarousel({
+  items,
+  className,
+  titleInside = false,
+}) {
   const [api, setApi] = useState();
   const [activeIndex, setActiveIndex] = useState(0);
   const [count, setCount] = useState(0);
@@ -51,7 +55,7 @@ export default function ReelsCarousel({ items, className, titleInside=false }) {
   }, [isMuted]);
 
   return (
-    <div className={cn("w-full", className)}>
+    <div className={cn("w-full select-none", className)}>
       <Carousel
         setApi={setApi}
         className="w-full relative"

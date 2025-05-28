@@ -1,14 +1,11 @@
-import SectionTitle from "@/components/common/SectionTitle";
+import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
+import RecAdBanner from "@/components/common/AdBanners/RecAdBanner";
+import SquareAd from "@/components/common/AdBanners/SquareAd";
+import CategoryTitle from "@/components/common/CategoryTitle";
+import Container from "@/components/common/Container";
 import VideoCard from "@/components/common/VideoCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
-export default function VideoGallery() {
+export default function page() {
   const videoData = [
     {
       title:
@@ -147,37 +144,68 @@ export default function VideoGallery() {
     },
   ];
 
+  // first three items for the data
+  const firstThreeItems = videoData.slice(0, 3);
+  // next six items for the data
+  const nextSixItems = videoData.slice(3, 9);
+  // rest of the items for the data
+  const restItems = videoData.slice(9);
+
   return (
-    <>
-      <SectionTitle title="ভিডিও গ্যালারি" bt={true} />
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full pb-9"
-      >
-        <CarouselContent className="">
-          {videoData?.map((video, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <VideoCard
-                title={video.title}
-                author={video.author}
-                date={video.date}
-                image={video.image}
-                videoUrl={video.videoUrl}
-                youtubeId={video.youtubeId}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="absolute left-[48%] inset-y-0 flex items-center">
-          <CarouselPrevious className="relative left-0 translate-x-0 h-6 w-6 cursor-pointer" />
-        </div>
-        <div className="absolute right-[48%]  inset-y-0 flex items-center">
-          <CarouselNext className="relative right-0 translate-x-0 h-6 w-6 cursor-pointer" />
-        </div>
-      </Carousel>
-    </>
+    <Container>
+      <LongAdBanner />
+      <CategoryTitle title="ভিডিও" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-5">
+        {firstThreeItems?.map((video, index) => (
+          <div key={index} className="space-y-4">
+            <VideoCard
+              title={video.title}
+              author={video.author}
+              date={video.date}
+              image={video.image}
+              videoUrl={video.videoUrl}
+              youtubeId={video.youtubeId}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-5">
+        <RecAdBanner />
+        <RecAdBanner />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-5">
+        {nextSixItems?.map((video, index) => (
+          <div key={index} className="space-y-4">
+            <VideoCard
+              title={video.title}
+              author={video.author}
+              date={video.date}
+              image={video.image}
+              videoUrl={video.videoUrl}
+              youtubeId={video.youtubeId}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-5">
+        <SquareAd />
+        <SquareAd />
+        <SquareAd />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-5">
+        {restItems?.map((video, index) => (
+          <div key={index} className="space-y-4">
+            <VideoCard
+              title={video.title}
+              author={video.author}
+              date={video.date}
+              image={video.image}
+              videoUrl={video.videoUrl}
+              youtubeId={video.youtubeId}
+            />
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 }

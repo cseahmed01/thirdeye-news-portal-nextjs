@@ -146,10 +146,10 @@ export default function FeaturedNavs() {
   };
 
   return (
-    <Container className="px-4 sm:px-6 lg:px-8 relative">
+    <Container className="relative mt-2">
       <div className="flex justify-between">
         {/* Desktop featured bar with horizontal scrolling */}
-        <div className="hidden md:flex md:items-center md:justify-between md:w-full relative mt-2">
+        <div className="hidden md:flex md:items-center md:justify-between md:w-full relative">
           {/* Navigation buttons and scrollable container */}
           <div
             className={cn(
@@ -162,9 +162,7 @@ export default function FeaturedNavs() {
               <button
                 className={cn(
                   "mr-2 flex-shrink-0 z-10 cursor-pointer hover:bg-gray-100 transition-opacity duration-200",
-                  canScrollLeft
-                    ? "opacity-100"
-                    : "opacity-50 cursor-not-allowed"
+                  canScrollLeft ? "visible" : "hidden"
                 )}
                 onClick={scrollLeft}
                 disabled={!canScrollLeft}
@@ -206,9 +204,7 @@ export default function FeaturedNavs() {
               <button
                 className={cn(
                   "ml-2 flex-shrink-0 z-10 cursor-pointer hover:bg-gray-100 transition-opacity duration-200",
-                  canScrollRight
-                    ? "opacity-100"
-                    : "opacity-50 cursor-not-allowed"
+                  canScrollRight ? "visible" : "invisible"
                 )}
                 onClick={scrollRight}
                 disabled={!canScrollRight}
