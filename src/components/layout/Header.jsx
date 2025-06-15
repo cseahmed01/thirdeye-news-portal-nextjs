@@ -5,10 +5,10 @@ import TopAppBar from "./TopAppBar";
 
 export default async function Header() {
   const categories = await fetchData("categories", {
-    // revalidate: 60,
+    cache: "no-store",
     tags: ["categories"],
   });
-  console.log("Fetched categories:", categories);
+  // console.log("Fetched categories:", categories);
 
   return (
     <header>
