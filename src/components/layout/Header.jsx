@@ -8,7 +8,6 @@ export default async function Header() {
     cache: "no-store",
     tags: ["categories"],
   });
-  // console.log("Fetched categories:", categories);
 
   return (
     <header>

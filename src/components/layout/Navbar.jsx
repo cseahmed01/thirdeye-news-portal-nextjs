@@ -135,7 +135,6 @@ const menuItems = [
 ];
 
 export default function Navbar({ categories }) {
-  console.log("🚀 ~ Navbar ~ categories:", categories);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navContainerRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useState(null);
