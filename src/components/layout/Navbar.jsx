@@ -134,7 +134,7 @@ const menuItems = [
   },
 ];
 
-export default function Navbar() {
+export default function Navbar({ categories }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navContainerRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -267,14 +267,16 @@ export default function Navbar() {
                     showButtons ? "space-x-7" : "space-x-7 justify-center"
                   )}
                 >
-                  {menuItems.map((item) => (
+                  {categories?.map((item) => (
                     <NavItem
-                      key={item.title}
+                      key={item?.id}
                       item={item}
-                      isOpen={openDropdown === item.title}
+                      isOpen={openDropdown === item?.category_name}
                       onToggle={() => {
                         setOpenDropdown(
-                          openDropdown === item.title ? null : item.title
+                          openDropdown === item?.category_name
+                            ? null
+                            : item?.category_name
                         );
                       }}
                     />
@@ -328,8 +330,8 @@ export default function Navbar() {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 max-h-[70vh] overflow-y-auto">
-          {menuItems.map((item) => (
-            <MobileNavItem key={item.title} item={item} />
+          {categories.map((item) => (
+            <MobileNavItem key={item?.id} item={item} />
           ))}
         </div>
       </div>
@@ -347,7 +349,7 @@ export default function Navbar() {
 
 // Desktop navigation item with dropdown
 function NavItem({ item, isOpen, onToggle }) {
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
+  const hasSubmenu = item?.subcategories && item?.subcategories.length > 0;
   const buttonRef = useRef(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
 
@@ -368,7 +370,7 @@ function NavItem({ item, isOpen, onToggle }) {
         <>
           <button
             ref={buttonRef}
-            data-dropdown-button={item.title}
+            data-dropdown-button={item.id}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
             onClick={(e) => {
               e.preventDefault();
@@ -376,7 +378,7 @@ function NavItem({ item, isOpen, onToggle }) {
               onToggle();
             }}
           >
-            {item.title}
+            {item.category_name}
             <ChevronDown
               className={cn("ml-1 h-4 w-4 transition-transform duration-200", {
                 "rotate-180": isOpen,
@@ -388,7 +390,7 @@ function NavItem({ item, isOpen, onToggle }) {
             hasSubmenu &&
             createPortal(
               <div
-                data-dropdown-content={item.title}
+                data-dropdown-content={item?.id}
                 className="fixed bg-white rounded-md shadow-lg z-[9999] pointer-events-auto border"
                 style={{
                   top: `${dropdownPosition.top}px`,
@@ -397,8 +399,8 @@ function NavItem({ item, isOpen, onToggle }) {
                 }}
               >
                 <div className="py-1 rounded-md bg-white">
-                  {item.submenu.map((subItem) => (
-                    <SubmenuItem key={subItem.title} item={subItem} />
+                  {item?.subcategories.map((subItem) => (
+                    <SubmenuItem key={subItem?.id} item={subItem} />
                   ))}
                 </div>
               </div>,
@@ -407,10 +409,10 @@ function NavItem({ item, isOpen, onToggle }) {
         </>
       ) : (
         <Link
-          href={item.href}
+          href={item?.category_name}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
         >
-          {item.title}
+          {item?.category_name}
         </Link>
       )}
     </div>
@@ -426,7 +428,7 @@ function createPortal(content, container) {
 
 // Submenu item with potential nested dropdown
 function SubmenuItem({ item }) {
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
+  const hasSubmenu = item?.subcategories && item?.subcategories.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const itemRef = useRef(null);
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
@@ -455,7 +457,7 @@ function SubmenuItem({ item }) {
             }}
           >
             <div className="flex justify-between items-center">
-              {item.title}
+              {item?.category_name}
               <ChevronRight className="ml-1 h-4 w-4" />
             </div>
           </button>
@@ -472,13 +474,13 @@ function SubmenuItem({ item }) {
                 }}
               >
                 <div className="py-1 rounded-md bg-white">
-                  {item.submenu.map((subItem) => (
+                  {item?.subcategories.map((subItem) => (
                     <Link
-                      key={subItem.title}
-                      href={subItem.href}
+                      key={subItem?.id}
+                      href={subItem?.category_name}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     >
-                      {subItem.title}
+                      {subItem?.category_name}
                     </Link>
                   ))}
                 </div>
@@ -488,10 +490,10 @@ function SubmenuItem({ item }) {
         </>
       ) : (
         <Link
-          href={item.href}
+          href={item?.category_name}
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         >
-          {item.title}
+          {item?.category_name}
         </Link>
       )}
     </div>
@@ -501,7 +503,7 @@ function SubmenuItem({ item }) {
 // Mobile navigation item with collapsible submenu
 function MobileNavItem({ item }) {
   const [isOpen, setIsOpen] = useState(false);
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
+  const hasSubmenu = item?.subcategories && item?.subcategories.length > 0;
 
   return (
     <div>
@@ -511,7 +513,7 @@ function MobileNavItem({ item }) {
             className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {item.title}
+            {item?.category_name}
             <ChevronDown
               className={cn("ml-1 h-4 w-4 transition-transform duration-200", {
                 "rotate-180": isOpen,
@@ -520,18 +522,18 @@ function MobileNavItem({ item }) {
           </button>
           {isOpen && (
             <div className="pl-4 mt-1 space-y-1">
-              {item.submenu.map((subItem) => (
-                <MobileNavItem key={subItem.title} item={subItem} />
+              {item?.subcategories.map((subItem) => (
+                <MobileNavItem key={subItem?.id} item={subItem} />
               ))}
             </div>
           )}
         </div>
       ) : (
         <Link
-          href={item.href}
+          href={item?.category_name}
           className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
         >
-          {item.title}
+          {item?.category_name}
         </Link>
       )}
     </div>
