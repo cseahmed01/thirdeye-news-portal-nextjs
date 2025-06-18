@@ -6,6 +6,19 @@ import VideoCarousel from "./VideoCarousel";
 
 export default function ArticleBody({ article }) {
   console.log("🚀 ~ ArticleBody ~ article:", article);
+
+  const extractImageUrls =
+    article?.data?.externalmedia
+      ?.filter((media) => media.media_type === "Image")
+      .map((media) => media.media_url?.original) || [];
+
+  const mainImage = article?.data?.media?.media_url?.original;
+
+  const mergedImageUrls = [
+    ...(mainImage ? [mainImage] : []),
+    ...(extractImageUrls.length > 0 ? extractImageUrls : []),
+  ];
+
   return (
     <div className="">
       <h1 className="text-[55px] font-bold md:leading-[56px] inline">
@@ -36,7 +49,7 @@ export default function ArticleBody({ article }) {
       </div>
       <div className="grid grid-cols-12 gap-6 mb-[30px]">
         <div className="lg:col-start-2 col-span-7">
-          <ImageCarousel />
+          <ImageCarousel items={mergedImageUrls} />
         </div>
         <div className="col-span-3 flex flex-col  items-center justify-between">
           <VideoCarousel />

@@ -1,4 +1,3 @@
-// app/articles/[id]/page.jsx
 import Container from "@/components/common/Container";
 import ArticleBody from "@/components/pages/article/ArticleBody";
 import { fetchData } from "@/lib/fetchData";
