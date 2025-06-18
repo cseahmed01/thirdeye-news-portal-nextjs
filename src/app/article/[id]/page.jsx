@@ -10,11 +10,11 @@ import { fetchData } from "@/lib/fetchData";
 //   }));
 // }
 
-export default async function ArticlePage({ params }) {
-  const { id } = params;
+export default async function page({ params }) {
+  const { id } = await params;
 
   const article = await fetchData(`articles/details/${id}`, {
-    revalidate: 300, // Revalidate every 5 minutes (ISR)
+    revalidate: 10, // Revalidate every 5 minutes (ISR)
   });
 
   return (

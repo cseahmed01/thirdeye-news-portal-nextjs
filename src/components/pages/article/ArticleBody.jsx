@@ -5,12 +5,13 @@ import ImageCarousel from "./ImageCarousel";
 import VideoCarousel from "./VideoCarousel";
 
 export default function ArticleBody({ article }) {
+  console.log("🚀 ~ ArticleBody ~ article:", article);
   return (
     <div className="">
       <h1 className="text-[55px] font-bold md:leading-[56px] inline">
         {article?.data?.title}
         <span className="inline-block ml-2 align-middle text-md font-normal whitespace-nowrap">
-          — {article?.data?.author}
+          — {article?.data?.journalistname?.name}
         </span>
       </h1>
       <p className="text-2xl my-7">
