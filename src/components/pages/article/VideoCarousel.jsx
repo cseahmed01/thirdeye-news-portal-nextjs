@@ -8,25 +8,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export default function VideoCarousel({ items, className }) {
-  const data = [
-    {
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1749920937484-a61e6a9566a9?q=80",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1749920937484-a61e6a9566a9?q=80",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-    },
-  ];
   return (
     <div className={cn("w-full select-none", className)}>
       <Carousel
@@ -37,18 +20,12 @@ export default function VideoCarousel({ items, className }) {
         }}
       >
         <CarouselContent className="aspect-video">
-          {data.map((item, index) => (
+          {items.map((item, index) => (
             <CarouselItem
               key={index}
               className="basis-full sm:basis-full md:basis-full lg:basis-full"
             >
-              <Image
-                src={item.image}
-                alt={`Carousel item ${index + 1}`}
-                className="aspect-video h-full w-full object-cover"
-                width={300}
-                height={170}
-              />
+              <video src={item?.url} controls></video>
             </CarouselItem>
           ))}
         </CarouselContent>

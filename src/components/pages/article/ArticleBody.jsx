@@ -2,10 +2,23 @@ import LongAdBanner from "@/components/common/AdBanners/LongAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
 import { getFormattedBengaliDate } from "@/lib/utils";
 import ImageCarousel from "./ImageCarousel";
+import RelatedNews from "./RelatedNews";
+import ShareOptions from "./ShareOptions";
 import VideoCarousel from "./VideoCarousel";
 
 export default function ArticleBody({ article }) {
   console.log("🚀 ~ ArticleBody ~ article:", article);
+
+  const extractImageUrls =
+    article?.data?.externalmedia?.image?.map((media) => media?.original) || [];
+
+  const mainImage = article?.data?.media?.media_url?.original;
+
+  const mergedImageUrls = [
+    ...(mainImage ? [mainImage] : []),
+    ...(extractImageUrls.length > 0 ? extractImageUrls : []),
+  ];
+
   return (
     <div className="">
       <h1 className="text-[55px] font-bold md:leading-[56px] inline">
@@ -17,29 +30,13 @@ export default function ArticleBody({ article }) {
       <p className="text-2xl my-7">
         {getFormattedBengaliDate(article.data.published_date)}
       </p>
-      <div className="flex items-center gap-7 mb-10">
-        <button className="cursor-pointer">
-          <img src="/assets/icons/bookmark.svg" alt="" className="w-9 h-9" />
-        </button>
-        <button className="cursor-pointer">
-          <img src="/assets/icons/share.svg" alt="" className="w-9 h-9" />
-        </button>
-        <button className="cursor-pointer">
-          <img src="/assets/icons/facebook.svg" alt="" className="w-9 h-9" />
-        </button>
-        <button className="cursor-pointer">
-          <img src="/assets/icons/whatsapp.png" alt="" className="w-9 h-9" />
-        </button>
-        <button className="cursor-pointer">
-          <img src="/assets/icons/twitter.svg" alt="" className="!w-9 h-9" />
-        </button>
-      </div>
+      <ShareOptions />
       <div className="grid grid-cols-12 gap-6 mb-[30px]">
         <div className="lg:col-start-2 col-span-7">
-          <ImageCarousel />
+          <ImageCarousel items={mergedImageUrls} />
         </div>
         <div className="col-span-3 flex flex-col  items-center justify-between">
-          <VideoCarousel />
+          <VideoCarousel items={article?.data?.externalmedia?.video} />
           <SquareAd />
         </div>
       </div>
@@ -57,6 +54,7 @@ export default function ArticleBody({ article }) {
         </div>
       </div>
       <LongAdBanner />
+      <RelatedNews />
     </div>
   );
 }
