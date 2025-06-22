@@ -10,8 +10,9 @@ import LatestNews from "@/components/pages/home/LatestNews";
 import LocalNewsFilter from "@/components/pages/home/LocalNewsFilter";
 import ReelsContainer from "@/components/pages/home/ReelsCarousel";
 import SpecialNews from "@/components/pages/home/SpecialNews";
+import { fetchData } from "@/lib/fetchData";
 
-export default function Home() {
+export default async function Home() {
   const featuredItems = {
     news: {
       heading:
@@ -56,12 +57,17 @@ export default function Home() {
     ],
   };
 
+  const leadNews = await fetchData(`articles/lead-news/1`, {
+    revalidate: 10, // Revalidate every 5 minutes (ISR)
+  });
+  console.log("🚀 ~ Home ~ leadNews:", leadNews);
+
   return (
     <Container>
       <LongAdBanner />
       <div className="grid grid-cols-12 gap-5 min-h-[430px] items-center">
         <div className="col-span-12 md:col-span-12 lg:col-span-7">
-          <FeaturedNewsCard item={featuredItems?.news} />
+          <FeaturedNewsCard item={leadNews?.data?.[0]} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-2">
           <ReelsContainer items={featuredItems?.reels} />
