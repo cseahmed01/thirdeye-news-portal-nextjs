@@ -58,9 +58,17 @@ export default async function Home() {
   };
 
   const leadNews = await fetchData(`articles/lead-news/1`, {
-    revalidate: 10, // Revalidate every 5 minutes (ISR)
+    revalidate: 10, // Revalidate every 10 seconds (ISR)
   });
-  console.log("🚀 ~ Home ~ leadNews:", leadNews);
+
+  const latestNews = await fetchData(`articles/latest?page=1`, {
+    revalidate: 10,
+  });
+
+  const breakingNews = await fetchData(`articles/breaking-news/4`, {
+    revalidate: 10,
+  });
+  console.log("🚀 ~ Home ~ breakingNews:", breakingNews);
 
   return (
     <Container>
@@ -77,11 +85,11 @@ export default async function Home() {
           <SquareAd />
         </div>
       </div>
-      <LatestNews />
+      <LatestNews data={latestNews?.data} />
       <SectionTitle title="ব্রেকিং" />
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-6 lg:col-span-9">
-          <BreakingNews />
+          <BreakingNews data={breakingNews?.data} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-center">
           <LocalNewsFilter />

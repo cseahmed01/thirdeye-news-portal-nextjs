@@ -1,3 +1,4 @@
+import { fallbackImage, getFormattedBengaliDate } from "@/lib/utils";
 import Image from "next/image";
 
 export default function BannerNews({ item, fullWidth = false }) {
@@ -6,17 +7,19 @@ export default function BannerNews({ item, fullWidth = false }) {
       <div className="col-span-12 md:col-span-8 order-2 md:order-1">
         <div className="relative">
           <h1 className="text-xl md:text-4xl font-normal md:leading-[56px] inline">
-            {item?.heading}
+            {item?.header}
             <span className="inline-block ml-2 align-middle text-xs font-normal whitespace-nowrap">
-              — {item?.author}
+              — {item?.journalist_name}
             </span>
           </h1>
 
           <span className="absolute right-0 bottom-0 text-xs whitespace-nowrap">
-            {item?.date}
+            {getFormattedBengaliDate(item?.published_date)}
           </span>
         </div>
-        <p className="text-md mt-4 md:leading-[28px]">{item?.description}</p>
+        <p className="text-md mt-4 md:leading-[28px]">
+          {item?.short_description}
+        </p>
       </div>
       <div
         className={`${
@@ -24,7 +27,11 @@ export default function BannerNews({ item, fullWidth = false }) {
         } col-span-4 order-1 md:order-2 relative overflow-hidden `}
       >
         <Image
-          src={item?.image}
+          src={
+            item?.media?.media_type == "Image"
+              ? item?.media?.media_url?.image?.thumbnail
+              : fallbackImage
+          }
           alt="Breaking News"
           width={fullWidth ? 425 : 322}
           height={fullWidth ? 240 : 188}
