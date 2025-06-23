@@ -68,7 +68,10 @@ export default async function Home() {
   const breakingNews = await fetchData(`articles/breaking-news/4`, {
     revalidate: 10,
   });
-  console.log("🚀 ~ Home ~ breakingNews:", breakingNews);
+
+  const specialNews = await fetchData(`articles/exclusive/4`, {
+    revalidate: 10,
+  });
 
   return (
     <Container>
@@ -99,7 +102,7 @@ export default async function Home() {
       </div>
       <VideoGallery />
       <LongAdBanner />
-      <SpecialNews />
+      <SpecialNews data={specialNews?.data} />
     </Container>
   );
 }

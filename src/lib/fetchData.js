@@ -1,4 +1,4 @@
-const baseUrl = "http://192.168.4.5:8000/api/v1/"; // Replace with your actual API base URL
+const baseUrl = "http://192.168.4.14:8000/api/v1/"; // Replace with your actual API base URL
 
 export async function fetchData(endPoint, options = {}) {
   try {
