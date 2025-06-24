@@ -10,14 +10,14 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export default function page() {
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(60);
 
   useEffect(() => {
     if (count === 0) return;
 
     const timer = setInterval(() => {
       setCount((prev) => prev - 1);
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(timer);
   }, [count]);
