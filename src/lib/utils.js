@@ -23,5 +23,4 @@ export function getFormattedBengaliDate(datetimeString) {
   }
 }
 
-export const fallbackImage =
-  "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80";
+export const fallbackImage = "/assets/fallback.webp";
