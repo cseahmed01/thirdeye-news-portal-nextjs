@@ -10,8 +10,9 @@ import LatestNews from "@/components/pages/home/LatestNews";
 import LocalNewsFilter from "@/components/pages/home/LocalNewsFilter";
 import ReelsContainer from "@/components/pages/home/ReelsCarousel";
 import SpecialNews from "@/components/pages/home/SpecialNews";
+import { fetchData } from "@/lib/fetchData";
 
-export default function Home() {
+export default async function Home() {
   const featuredItems = {
     news: {
       heading:
@@ -56,12 +57,28 @@ export default function Home() {
     ],
   };
 
+  const leadNews = await fetchData(`articles/lead-news/1`, {
+    revalidate: 10, // Revalidate every 10 seconds (ISR)
+  });
+
+  const latestNews = await fetchData(`articles/latest?page=1`, {
+    revalidate: 10,
+  });
+
+  const breakingNews = await fetchData(`articles/breaking-news/4`, {
+    revalidate: 10,
+  });
+
+  const specialNews = await fetchData(`articles/exclusive/4`, {
+    revalidate: 10,
+  });
+
   return (
     <Container>
       <LongAdBanner />
       <div className="grid grid-cols-12 gap-5 min-h-[430px] items-center">
         <div className="col-span-12 md:col-span-12 lg:col-span-7">
-          <FeaturedNewsCard item={featuredItems?.news} />
+          <FeaturedNewsCard item={leadNews?.data?.[0]} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-2">
           <ReelsContainer items={featuredItems?.reels} />
@@ -71,11 +88,11 @@ export default function Home() {
           <SquareAd />
         </div>
       </div>
-      <LatestNews />
+      <LatestNews data={latestNews?.data} />
       <SectionTitle title="ব্রেকিং" />
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-6 lg:col-span-9">
-          <BreakingNews />
+          <BreakingNews data={breakingNews?.data} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-center">
           <LocalNewsFilter />
@@ -85,7 +102,7 @@ export default function Home() {
       </div>
       <VideoGallery />
       <LongAdBanner />
-      <SpecialNews />
+      <SpecialNews data={specialNews?.data} />
     </Container>
   );
 }

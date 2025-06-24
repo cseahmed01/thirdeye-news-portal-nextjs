@@ -1,3 +1,4 @@
+import { fallbackImage, getFormattedBengaliDate } from "@/lib/utils";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 
@@ -9,7 +10,11 @@ export default function NewsCard({ item }) {
     >
       <div className="relative w-full h-full">
         <Image
-          src={item.image}
+          src={
+            item?.media?.media_type == "Image"
+              ? item?.media?.media_url?.image?.thumbnail
+              : fallbackImage
+          }
           alt="Photo by Drew Beamer"
           fill
           className="h-full w-full object-cover group-hover:scale-103 transition-transform duration-300"
@@ -24,14 +29,16 @@ export default function NewsCard({ item }) {
         >
           <div>
             <h1 className="text-md md:text-lg font-bold leading-snug inline">
-              {item?.heading}
+              {item?.header}
               <span className="whitespace-nowrap inline-block ml-2 align-middle text-xxs font-normal">
-                — {item?.author}
+                — {item?.journalist_name}
               </span>
             </h1>
-            <p className="text-xsm">{item?.description}</p>
+            <p className="text-xsm">{item?.short_description}</p>
           </div>
-          <p className="text-xs whitespace-nowrap">{item?.date}</p>
+          <p className="text-xs whitespace-nowrap">
+            {getFormattedBengaliDate(item?.published_date)}
+          </p>
         </div>
       </div>
     </AspectRatio>
