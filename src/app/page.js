@@ -63,7 +63,6 @@ export default async function Home() {
   const videoGallery = await fetchData(`videos/list?page=1`, {
     revalidate: 10,
   });
-  console.log("🚀 ~ Home ~ videoGallery:", videoGallery);
 
   const specialNews = await fetchData(`articles/exclusive/9`, {
     revalidate: 10,
