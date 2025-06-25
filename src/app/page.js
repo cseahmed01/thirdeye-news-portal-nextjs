@@ -69,7 +69,7 @@ export default async function Home() {
     revalidate: 10,
   });
 
-  const specialNews = await fetchData(`articles/exclusive/4`, {
+  const specialNews = await fetchData(`articles/exclusive/9`, {
     revalidate: 10,
   });
 
