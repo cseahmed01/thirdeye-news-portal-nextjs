@@ -14,15 +14,6 @@ import { fetchData } from "@/lib/fetchData";
 
 export default async function Home() {
   const featuredItems = {
-    news: {
-      heading:
-        "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-      description:
-        "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-      author: "এলেন জোশের প্রতিবেদন",
-      image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-      date: "৯ই জুন, ২০২৫",
-    },
     reels: [
       {
         title: "Direct Video Example",
@@ -69,6 +60,11 @@ export default async function Home() {
     revalidate: 10,
   });
 
+  const videoGallery = await fetchData(`videos/list?page=1`, {
+    revalidate: 10,
+  });
+  console.log("🚀 ~ Home ~ videoGallery:", videoGallery);
+
   const specialNews = await fetchData(`articles/exclusive/9`, {
     revalidate: 10,
   });
@@ -100,7 +96,7 @@ export default async function Home() {
           <SquareAd />
         </div>
       </div>
-      <VideoGallery />
+      <VideoGallery data={videoGallery?.data} />
       <LongAdBanner />
       <SpecialNews data={specialNews?.data} />
     </Container>
