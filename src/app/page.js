@@ -68,6 +68,11 @@ export default async function Home() {
     revalidate: 10,
   });
 
+  const reels = await fetchData(`reels/list?page=1`, {
+    revalidate: 10,
+  });
+  console.log("🚀 ~ Home ~ reels:", reels);
+
   return (
     <Container>
       <LongAdBanner />
