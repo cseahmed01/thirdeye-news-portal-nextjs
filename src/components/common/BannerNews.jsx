@@ -32,7 +32,7 @@ export default function BannerNews({ item, fullWidth = false }) {
               ? item?.media?.media_url?.image?.thumbnail
               : fallbackImage
           }
-          alt="Breaking News"
+          alt="News Image"
           width={fullWidth ? 425 : 322}
           height={fullWidth ? 240 : 188}
           className="object-cover group-hover:scale-103 transition-transform duration-300"

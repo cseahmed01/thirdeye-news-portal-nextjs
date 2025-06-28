@@ -1,7 +1,8 @@
+import { fallbackImage, getFormattedBengaliDate } from "@/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Image from "next/image";
 
-export default function SpecialFeatured() {
+export default function SpecialFeatured({ data }) {
   return (
     <AspectRatio
       ratio={16 / 9}
@@ -9,8 +10,12 @@ export default function SpecialFeatured() {
     >
       <div className="relative w-full h-full">
         <Image
-          src="https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80"
-          alt="Photo by Drew Beamer"
+          src={
+            data?.media?.media_type == "Image"
+              ? data?.media?.media_url?.image?.thumbnail
+              : fallbackImage
+          }
+          alt="Featured News Image"
           fill
           className="h-full w-full object-cover group-hover:scale-101 transition-transform duration-300"
           priority
@@ -24,21 +29,17 @@ export default function SpecialFeatured() {
         >
           <div className="text-white text-center w-full max-w-[785px]">
             <h1 className="text-5xl font-normal leading-[56px]">
-              {
-                "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন"
-              }
+              {data?.header}
             </h1>
             <div className="flex items-center justify-center gap-10 py-3">
               <p className="whitespace-nowrap text-md font-normal">
-                — {"এলেন জোশের প্রতিবেদন"}
+                — {data?.journalist_name}
               </p>
-              <p className="text-xs whitespace-nowrap">{"৯ই জুন, ২০২৫"}</p>
+              <p className="text-xs whitespace-nowrap">
+                {getFormattedBengaliDate(data?.published_date)}
+              </p>
             </div>
-            <p className="text-lg">
-              {
-                "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে"
-              }
-            </p>
+            <p className="text-lg">{data?.short_description}</p>
           </div>
         </div>
       </div>

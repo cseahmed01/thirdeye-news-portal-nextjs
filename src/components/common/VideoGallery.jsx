@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export default function VideoGallery() {
+export default function VideoGallery({ data }) {
   const videoData = [
     {
       title:
@@ -158,15 +158,17 @@ export default function VideoGallery() {
         className="w-full pb-9"
       >
         <CarouselContent className="">
-          {videoData?.map((video, index) => (
+          {data?.map((video, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <VideoCard
                 title={video.title}
-                author={video.author}
-                date={video.date}
-                image={video.image}
-                videoUrl={video.videoUrl}
-                youtubeId={video.youtubeId}
+                author={video.source}
+                date={video.created_at}
+                image={
+                  video?.video_type !== "youtube" && video?.video_thumbnail
+                }
+                videoUrl={video.media_path}
+                youtubeId={video.embedded_link}
               />
             </CarouselItem>
           ))}

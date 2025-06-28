@@ -53,7 +53,7 @@ export default function Footer() {
           </div>
           <div className="pt-8 pl-7.5 space-x-2">
             <input
-              className="border py-[16.5px] px-3.5  w-[397px] outline-0 text-md placeholder:text-[#A1A1A1"
+              className="border py-[16.5px] px-3.5 w-full md:w-[397px] outline-0 text-md placeholder:text-[#A1A1A1"
               type="email"
               placeholder="enter your email address"
             ></input>
@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
 
         {/* copy right  */}
-        <div className="flex gap-[60px] mt-[62px] mb-[27px] text-xs">
+        <div className="flex flex-wrap gap-[60px] mt-[62px] mb-[27px] text-xs">
           <p>&copy; {new Date().getFullYear()} Your Company Name</p>
           <p>আমাদের সম্পর্কে</p>
           <p>গোপনীয়তা নীতি</p>
