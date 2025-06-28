@@ -267,6 +267,12 @@ export default function Navbar({ categories }) {
                     showButtons ? "space-x-7" : "space-x-7 justify-center"
                   )}
                 >
+                  <Link
+                    href="/"
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
+                  >
+                    Home
+                  </Link>
                   {categories?.map((item) => (
                     <NavItem
                       key={item?.id}
