@@ -36,13 +36,13 @@ export default function ArticleBody({ article }) {
 
   return (
     <div className="">
-      <h1 className="text-[55px] font-bold md:leading-[56px] inline">
+      <h1 className="text-2xl lg:text-[55px] font-bold md:leading-[56px] inline">
         {article?.data?.title}
         <span className="inline-block ml-2 align-middle text-md font-normal whitespace-nowrap">
           — {article?.data?.journalistname?.name}
         </span>
       </h1>
-      <p className="text-2xl my-7">
+      <p className="lg:text-2xl my-7">
         {getFormattedBengaliDate(article.data.published_date)}
       </p>
       <ShareOptions />
@@ -61,9 +61,9 @@ export default function ArticleBody({ article }) {
           <SquareAd />
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-9 mb-8">
+      <div className="grid grid-cols-12 gap-9 mb-8 ">
         <div
-          className="col-span-12 lg:col-span-9 text-lg"
+          className="col-span-12 lg:col-span-9 text-lg text-wrap"
           dangerouslySetInnerHTML={{
             __html: article?.data?.content || "<p>No content available</p>",
           }}
