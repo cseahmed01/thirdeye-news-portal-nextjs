@@ -60,10 +60,6 @@ export default async function Home() {
     revalidate: 10,
   });
 
-  const videoGallery = await fetchData(`videos/list?page=1`, {
-    revalidate: 10,
-  });
-
   const specialNews = await fetchData(`articles/exclusive/9`, {
     revalidate: 10,
   });
@@ -100,7 +96,7 @@ export default async function Home() {
           <SquareAd />
         </div>
       </div>
-      <VideoGallery data={videoGallery?.data} />
+      <VideoGallery />
       <LongAdBanner />
       <SpecialNews data={specialNews?.data} />
     </Container>

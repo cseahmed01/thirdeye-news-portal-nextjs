@@ -415,7 +415,7 @@ function NavItem({ item, isOpen, onToggle }) {
         </>
       ) : (
         <Link
-          href={item?.category_name}
+          href={`/category/${item?.id}`}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
         >
           {item?.category_name}
@@ -483,7 +483,7 @@ function SubmenuItem({ item }) {
                   {item?.subcategories.map((subItem) => (
                     <Link
                       key={subItem?.id}
-                      href={subItem?.category_name}
+                      href={`/category/${subItem?.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     >
                       {subItem?.category_name}
@@ -496,7 +496,7 @@ function SubmenuItem({ item }) {
         </>
       ) : (
         <Link
-          href={item?.category_name}
+          href={`/category/${item?.id}`}
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         >
           {item?.category_name}
@@ -536,7 +536,7 @@ function MobileNavItem({ item }) {
         </div>
       ) : (
         <Link
-          href={item?.category_name}
+          href={`/category/${item?.id}`}
           className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
         >
           {item?.category_name}
