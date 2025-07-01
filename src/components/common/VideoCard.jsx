@@ -18,7 +18,7 @@ export default function VideoCard({
         thumbnailSrc={
           youtubeId
             ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
-            : "https://via.placeholder.com/425x240"
+            : image
         }
         thumbnailAlt={`video`}
       />
