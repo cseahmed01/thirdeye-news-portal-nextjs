@@ -271,7 +271,7 @@ export default function Navbar({ categories }) {
                     href="/"
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
                   >
-                    Home
+                    সর্বশেষ
                   </Link>
                   {categories?.map((item) => (
                     <NavItem

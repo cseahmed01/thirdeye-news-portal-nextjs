@@ -48,33 +48,33 @@ export default async function Home() {
     ],
   };
 
-  const leadNews = await fetchData(`articles/lead-news/1`, {
+  const leadNews = await fetchData(`articles/single-lead-news`, {
     revalidate: 10, // Revalidate every 10 seconds (ISR)
   });
+  console.log("🚀 ~ Home ~ leadNews:", leadNews);
 
   const latestNews = await fetchData(`articles/latest?page=1`, {
     revalidate: 10,
   });
 
-  const breakingNews = await fetchData(`articles/breaking-news/4`, {
+  const breakingNews = await fetchData(`articles/breaking-news?page=1`, {
     revalidate: 10,
   });
 
-  const specialNews = await fetchData(`articles/exclusive/9`, {
+  const specialNews = await fetchData(`articles/exclusive?page=1`, {
     revalidate: 10,
   });
 
   const reels = await fetchData(`reels/list?page=1`, {
     revalidate: 10,
   });
-  console.log("🚀 ~ Home ~ reels:", reels);
 
   return (
     <Container>
       <LongAdBanner />
       <div className="grid grid-cols-12 gap-5 min-h-[430px] items-center">
         <div className="col-span-12 md:col-span-12 lg:col-span-7">
-          <FeaturedNewsCard item={leadNews?.data?.[0]} />
+          <FeaturedNewsCard item={leadNews?.data} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-2">
           <ReelsContainer items={featuredItems?.reels} />
