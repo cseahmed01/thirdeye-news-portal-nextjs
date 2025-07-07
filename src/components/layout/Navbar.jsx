@@ -6,134 +6,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Container from "../common/Container";
 
-// Menu data with many items
-const menuItems = [
-  {
-    title: "Home",
-    href: "/",
-  },
-  {
-    title: "Products",
-    href: "#",
-    submenu: [
-      {
-        title: "Electronics",
-        href: "/products/electronics",
-        submenu: [
-          {
-            title: "Smartphones",
-            href: "/products/electronics/smartphones",
-          },
-          {
-            title: "Laptops",
-            href: "/products/electronics/laptops",
-          },
-          {
-            title: "Tablets",
-            href: "/products/electronics/tablets",
-          },
-        ],
-      },
-      {
-        title: "Clothing",
-        href: "/products/clothing",
-        submenu: [
-          {
-            title: "Men",
-            href: "/products/clothing/men",
-          },
-          {
-            title: "Women",
-            href: "/products/clothing/women",
-          },
-          {
-            title: "Kids",
-            href: "/products/clothing/kids",
-          },
-        ],
-      },
-      {
-        title: "Books",
-        href: "/products/books",
-      },
-    ],
-  },
-  {
-    title: "Services",
-    href: "#",
-    submenu: [
-      {
-        title: "Consulting",
-        href: "/services/consulting",
-      },
-      {
-        title: "Development",
-        href: "/services/development",
-      },
-      {
-        title: "Support",
-        href: "/services/support",
-      },
-    ],
-  },
-  {
-    title: "About",
-    href: "/about",
-  },
-  {
-    title: "Contact",
-    href: "/contact",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-  },
-  {
-    title: "Resources",
-    href: "/resources",
-  },
-  {
-    title: "Pricing",
-    href: "/pricing",
-  },
-  {
-    title: "Support",
-    href: "/support",
-  },
-  {
-    title: "Community",
-    href: "/community",
-  },
-  {
-    title: "Partners",
-    href: "/partners",
-  },
-  {
-    title: "Marketplace",
-    href: "/marketplace",
-  },
-  {
-    title: "Academy",
-    href: "/academy",
-  },
-  {
-    title: "Events",
-    href: "/events",
-  },
-  {
-    title: "Careers",
-    href: "/careers",
-  },
-  {
-    title: "Investors",
-    href: "/investors",
-  },
-  {
-    title: "Research",
-    href: "/research",
-  },
-];
-
 export default function Navbar({ categories }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navContainerRef = useRef(null);
@@ -374,7 +246,7 @@ function NavItem({ item, isOpen, onToggle }) {
     <div className="relative flex-shrink-0">
       {hasSubmenu ? (
         <>
-          <button
+          {/* <button
             ref={buttonRef}
             data-dropdown-button={item.id}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap"
@@ -390,7 +262,28 @@ function NavItem({ item, isOpen, onToggle }) {
                 "rotate-180": isOpen,
               })}
             />
-          </button>
+          </button> */}
+          <div className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 whitespace-nowrap">
+            <Link href={`/category/${item?.id}`} className="mr-1">
+              {item?.category_name}
+            </Link>
+            <button
+              ref={buttonRef}
+              data-dropdown-button={item.id}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggle();
+              }}
+              className="p-0 m-0"
+            >
+              <ChevronDown
+                className={cn("h-4 w-4 transition-transform duration-200", {
+                  "rotate-180": isOpen,
+                })}
+              />
+            </button>
+          </div> 
 
           {isOpen &&
             hasSubmenu &&

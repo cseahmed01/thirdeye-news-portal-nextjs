@@ -8,7 +8,6 @@ import { useState } from "react";
 
 export default function CategoryPageClient({ initialData, categoryId }) {
   const [page, setPage] = useState(1);
-  console.log("🚀 ~ CategoryPageClient ~ page:", page);
   const [additionalData, setAdditionalData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
@@ -33,22 +32,12 @@ export default function CategoryPageClient({ initialData, categoryId }) {
         setHasMoreData(false);
       } else {
         setAdditionalData((prevData) => [...prevData, ...newData]);
-
-        // Check if this response has fewer items than expected (indicating last page)
-        // You can adjust this logic based on your API's pagination structure
-        // Common patterns:
-        // 1. If API returns a specific page size and this response has fewer items
-        // 2. If API returns pagination metadata like hasMore, currentPage, lastPage etc.
-
-        // For now, we'll assume if we get less than 10 items, it's the last page
-        // You can modify this based on your API's actual behavior
         if (newData.length < 10) {
           setHasMoreData(false);
         }
       }
     } catch (error) {
       console.error("Error fetching additional data:", error);
-      // On error, assume no more data to prevent infinite retry
       setHasMoreData(false);
     } finally {
       setLoading(false);
