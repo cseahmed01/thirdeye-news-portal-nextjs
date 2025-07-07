@@ -7,145 +7,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { fetchData } from "@/lib/fetchData";
 
-export default function VideoGallery({ data }) {
-  const videoData = [
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "আল-জাজিরা নিউজ",
-      date: "May 21, 2025",
-      youtubeId: "AsrDK5VCHOw",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "আল-জাজিরা নিউজ",
-      date: "May 21, 2025",
-      youtubeId: "AsrDK5VCHOw",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "আল-জাজিরা নিউজ",
-      date: "May 21, 2025",
-      youtubeId: "AsrDK5VCHOw",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "আল-জাজিরা নিউজ",
-      date: "May 21, 2025",
-      youtubeId: "AsrDK5VCHOw",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1622864352372-a68fa7dac64e?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "আল-জাজিরা নিউজ",
-      date: "May 21, 2025",
-      youtubeId: "AsrDK5VCHOw",
-    },
-    {
-      title:
-        "ইসরাইলের বিরুদ্ধে কঠোর নিষেধাজ্ঞার হুঁশিয়ারী, একাট্টা ইউরোপ-আরব জোট!",
-      author: "এলেন জোশের",
-      date: "May 22, 2025",
-      image:
-        "https://images.unsplash.com/photo-1588859959601-12d5ecb1b354?q=80",
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-  ];
+export default async function VideoGallery() {
+  const videoGallery = await fetchData(`videos/list?page=1`, {
+    revalidate: 10,
+  });
 
   return (
     <>
@@ -158,7 +25,7 @@ export default function VideoGallery({ data }) {
         className="w-full pb-9"
       >
         <CarouselContent className="">
-          {data?.map((video, index) => (
+          {videoGallery?.data?.map((video, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <VideoCard
                 title={video.title}

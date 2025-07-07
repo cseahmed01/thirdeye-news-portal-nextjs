@@ -17,6 +17,15 @@ const nextConfig = {
       },
     ],
   },
+  // Optional: Alternative approach using rewrites (comment out if using API routes)
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/proxy/:path*',
+  //       destination: 'http://192.168.4.14:8000/api/v1/:path*',
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;

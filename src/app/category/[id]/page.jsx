@@ -1,65 +1,57 @@
 import RecAdBanner from "@/components/common/AdBanners/RecAdBanner";
 import SmallRecAdBanner from "@/components/common/AdBanners/SmallRecAdBanner";
 import SquareAd from "@/components/common/AdBanners/SquareAd";
-import BannerNews from "@/components/common/BannerNews";
 import CategoryTitle from "@/components/common/CategoryTitle";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import VideoGallery from "@/components/common/VideoGallery";
+import CategoryPageClient from "@/components/pages/category/CategoryPageClient";
 import ReelsCarousel from "@/components/pages/home/ReelsCarousel";
+import { fetchData } from "@/lib/fetchData";
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  try {
+    const data = await fetchData(`articles/category/${id}?page=1`, {
+      revalidate: 10,
+    });
+
+    return {
+      title: `${data?.meta?.category_name || "Category"} - News Portal`,
+      description: `Latest news and articles from ${
+        data?.meta?.category_name || "this category"
+      }`,
+      openGraph: {
+        title: `${data?.meta?.category_name || "Category"} - News Portal`,
+        description: `Latest news and articles from ${
+          data?.meta?.category_name || "this category"
+        }`,
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Category News - News Portal",
+      description: "Latest news and articles from this category",
+    };
+  }
+}
 
 export default async function page({ params }) {
   const { id } = await params;
-  console.log("🚀 ~ page ~ id:", id);
+
+  // Fetch initial data server-side
+  let initialData = null;
+  try {
+    initialData = await fetchData(`articles/category/${id}?page=1`, {
+      revalidate: 10,
+    });
+  } catch (error) {
+    console.error("Error fetching initial data:", error);
+  }
 
   const data = {
-    news: [
-      {
-        heading:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        description:
-          "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-        author: "এলেন জোশের প্রতিবেদন",
-        image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-        date: "৯ই জুন, ২০২৫",
-      },
-      {
-        heading:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        description:
-          "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-        author: "এলেন জোশের প্রতিবেদন",
-        image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-        date: "৯ই জুন, ২০২৫",
-      },
-      {
-        heading:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        description:
-          "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-        author: "এলেন জোশের প্রতিবেদন",
-        image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-        date: "৯ই জুন, ২০২৫",
-      },
-      {
-        heading:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        description:
-          "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-        author: "এলেন জোশের প্রতিবেদন",
-        image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-        date: "৯ই জুন, ২০২৫",
-      },
-      {
-        heading:
-          "যুক্তরাষ্ট্র ও ইউক্রেন খনিজ সম্পদ চুক্তিতে সম্মত হয়েছে, কর্মকর্তারা বলেন",
-        description:
-          "গাজার ওপর ব্যাপক বিমান হামলা চালিয়েছে ইসরায়েল। হামলায় অন্তত ২২০ ফিলিস্তিনির মৃত্যুর খবর পাওয়া গেছে। মৃতের মধ্যে অনেক নারী ও শিশু রয়েছে। ইসরায়েল ডিফেন্স ফোর্স (আইডিএফ) জানিয়েছে",
-        author: "এলেন জোশের প্রতিবেদন",
-        image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
-        date: "৯ই জুন, ২০২৫",
-      },
-    ],
     reels: [
       {
         title:
@@ -97,10 +89,12 @@ export default async function page({ params }) {
 
   return (
     <Container>
-      <CategoryTitle title={"সর্বশেষ"} />
+      <CategoryTitle
+        title={initialData?.meta?.category_name || "Category News"}
+      />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4.5 mb-6 items-center">
         <div className="md:col-span-7">
-          <FeaturedNewsCard item={data?.news[0]} />
+          <FeaturedNewsCard item={initialData?.data?.[0]} />
         </div>
         <div className="md:col-span-3 flex flex-col gap-3 items-center justify-center">
           <SquareAd />
@@ -115,11 +109,9 @@ export default async function page({ params }) {
         <RecAdBanner />
       </div>
       <VideoGallery />
-      <div className="flex flex-col w-full gap-6 my-6">
-        {data?.news?.slice(1).map((item, index) => (
-          <BannerNews key={index + 1} item={item} fullWidth />
-        ))}
-      </div>
+
+      {/* Client-side pagination component */}
+      <CategoryPageClient initialData={initialData} categoryId={id} />
     </Container>
   );
 }
