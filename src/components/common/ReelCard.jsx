@@ -2,7 +2,7 @@
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getFormattedBengaliDate } from "@/lib/utils";
 import { Play, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -27,20 +27,25 @@ export default function ReelCard({
   const videoRef = useRef(null);
   const youtubePlayerRef = useRef(null);
   const playerContainerRef = useRef(null);
+  const playRequestRef = useRef(null);
 
   // Determine if it's a YouTube video
   useEffect(() => {
-    // Check if youtubeId is directly provided
-    if (item?.youtubeId) {
+    // Check if video_type is youtube
+    if (item?.video_type === "youtube") {
       setIsYouTubeVideo(true);
+      // For YouTube videos, embedded_link contains the video ID directly
+      if (item?.embedded_link) {
+        youtubePlayerRef.current = { id: item.embedded_link };
+      }
       return;
     }
 
-    // Check if videoUrl is a YouTube URL
-    if (item?.videoUrl) {
+    // For upload type, check if embedded_link is a YouTube URL (fallback)
+    if (item?.embedded_link && item?.video_type === "upload") {
       const youtubeRegex =
         /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
-      const match = item.videoUrl.match(youtubeRegex);
+      const match = item.embedded_link.match(youtubeRegex);
 
       if (match && match[1]) {
         setIsYouTubeVideo(true);
@@ -89,7 +94,7 @@ export default function ReelCard({
       return;
 
     const videoId =
-      item.youtubeId ||
+      item.embedded_link ||
       (youtubePlayerRef.current && youtubePlayerRef.current.id);
     if (!videoId) return;
 
@@ -231,22 +236,30 @@ export default function ReelCard({
       internalIsPlaying
     ) {
       // This video should be paused
-      try {
-        if (isYouTubeVideo) {
-          if (
-            youtubePlayerRef.current &&
-            youtubePlayerRef.current.player &&
-            typeof youtubePlayerRef.current.player.pauseVideo === "function"
-          ) {
-            youtubePlayerRef.current.player.pauseVideo();
+      const pauseVideo = async () => {
+        try {
+          if (isYouTubeVideo) {
+            if (
+              youtubePlayerRef.current &&
+              youtubePlayerRef.current.player &&
+              typeof youtubePlayerRef.current.player.pauseVideo === "function"
+            ) {
+              youtubePlayerRef.current.player.pauseVideo();
+            }
+          } else if (videoRef.current) {
+            // Cancel any pending play request
+            if (playRequestRef.current) {
+              playRequestRef.current = null;
+            }
+            videoRef.current.pause();
           }
-        } else if (videoRef.current) {
-          videoRef.current.pause();
+        } catch (error) {
+          console.error("Error pausing video:", error);
         }
-      } catch (error) {
-        console.error("Error pausing video:", error);
-      }
-      setInternalIsPlaying(false);
+        setInternalIsPlaying(false);
+      };
+
+      pauseVideo();
     }
   }, [isPlaying, internalIsPlaying, isYouTubeVideo, onVideoPlay, onVideoPause]);
 
@@ -280,26 +293,34 @@ export default function ReelCard({
   // Pause video when slide changes and this card is not active (for carousel)
   useEffect(() => {
     if (!isActive && internalIsPlaying) {
-      try {
-        if (isYouTubeVideo) {
-          if (
-            youtubePlayerRef.current &&
-            youtubePlayerRef.current.player &&
-            typeof youtubePlayerRef.current.player.pauseVideo === "function"
-          ) {
-            youtubePlayerRef.current.player.pauseVideo();
+      const pauseVideo = async () => {
+        try {
+          if (isYouTubeVideo) {
+            if (
+              youtubePlayerRef.current &&
+              youtubePlayerRef.current.player &&
+              typeof youtubePlayerRef.current.player.pauseVideo === "function"
+            ) {
+              youtubePlayerRef.current.player.pauseVideo();
+            }
+          } else if (videoRef.current) {
+            // Cancel any pending play request
+            if (playRequestRef.current) {
+              playRequestRef.current = null;
+            }
+            videoRef.current.pause();
           }
-        } else if (videoRef.current) {
-          videoRef.current.pause();
+        } catch (error) {
+          console.error("Error pausing video:", error);
         }
-      } catch (error) {
-        console.error("Error pausing video:", error);
-      }
-      setInternalIsPlaying(false);
+        setInternalIsPlaying(false);
+      };
+
+      pauseVideo();
     }
   }, [isActive, internalIsPlaying, isYouTubeVideo]);
 
-  const togglePlayPause = () => {
+  const togglePlayPause = async () => {
     if (isYouTubeVideo) {
       if (showThumbnail) {
         setShowThumbnail(false);
@@ -325,14 +346,37 @@ export default function ReelCard({
         console.error("Error controlling YouTube player:", error);
       }
     } else {
-      // Direct video handling - let the event listeners handle state updates
+      // Direct video handling with proper async/await and race condition prevention
       if (videoRef.current) {
-        if (internalIsPlaying) {
-          videoRef.current.pause();
-        } else {
-          videoRef.current.play().catch((error) => {
+        try {
+          if (internalIsPlaying) {
+            // Cancel any pending play request
+            if (playRequestRef.current) {
+              playRequestRef.current = null;
+            }
+            videoRef.current.pause();
+          } else {
+            // Check if video is already playing or if there's a pending request
+            if (videoRef.current.paused && !playRequestRef.current) {
+              playRequestRef.current = videoRef.current.play();
+              await playRequestRef.current;
+              playRequestRef.current = null;
+            }
+          }
+        } catch (error) {
+          playRequestRef.current = null;
+          // Handle specific error types
+          if (error.name === "AbortError") {
+            console.log(
+              "Play request was interrupted, this is normal during rapid clicking"
+            );
+          } else if (error.name === "NotAllowedError") {
+            console.log(
+              "Play request was denied, user interaction may be required"
+            );
+          } else {
             console.error("Error playing video:", error);
-          });
+          }
         }
       }
     }
@@ -350,7 +394,7 @@ export default function ReelCard({
   // Get YouTube video ID
   const getYouTubeId = () => {
     return (
-      item.youtubeId ||
+      item?.embedded_link ||
       (youtubePlayerRef.current && youtubePlayerRef.current.id)
     );
   };
@@ -368,10 +412,7 @@ export default function ReelCard({
               // YouTube Thumbnail
               <>
                 <img
-                  src={
-                    item?.image ||
-                    `https://img.youtube.com/vi/${getYouTubeId()}/maxresdefault.jpg`
-                  }
+                  src={`https://img.youtube.com/vi/${getYouTubeId()}/maxresdefault.jpg`}
                   alt={item?.title || "Video thumbnail"}
                   className="w-full h-full object-cover cursor-pointer"
                   onClick={togglePlayPause}
@@ -433,11 +474,8 @@ export default function ReelCard({
             <video
               ref={videoRef}
               className="w-full h-full object-cover cursor-pointer"
-              src={
-                item?.videoUrl ||
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-              }
-              poster={item?.image}
+              src={item?.media_path}
+              poster={item?.thumbnail_path}
               playsInline
               onClick={togglePlayPause}
               muted={isMuted}
@@ -479,11 +517,15 @@ export default function ReelCard({
             <div className="flex flex-col gap-1 text-white">
               <h1 className="text-xsm leading-snug inline truncate text-wrap">
                 {item?.title}
-                <span className="inline-block ml-2 align-middle text-xxs font-thin">
-                  — {item?.author}
-                </span>
+                {item?.source && (
+                  <span className="inline-block ml-2 align-middle text-xxs font-thin">
+                    — {item?.source}
+                  </span>
+                )}
               </h1>
-              <p className="text-xxs whitespace-nowrap">{item?.date}</p>
+              <p className="text-xxs whitespace-nowrap">
+                {getFormattedBengaliDate(item?.created_at)}
+              </p>
             </div>
           </div>
         )}
@@ -498,13 +540,15 @@ export default function ReelCard({
             }  leading-snug inline truncate text-wrap`}
           >
             {item?.title}
-            <span
-              className={`inline-block ml-2 align-middle  ${
-                onReelsPage ? "text-sm font-normal" : "text-xxs font-thin"
-              }`}
-            >
-              — {item?.author}
-            </span>
+            {item?.source && (
+              <span
+                className={`inline-block ml-2 align-middle  ${
+                  onReelsPage ? "text-sm font-normal" : "text-xxs font-thin"
+                }`}
+              >
+                — {item?.source}
+              </span>
+            )}
           </h1>
           <div className="flex items-center justify-between w-full">
             {!onReelsPage && (
@@ -517,7 +561,7 @@ export default function ReelCard({
                 onReelsPage ? "text-xs" : "text-xxs"
               } whitespace-nowrap`}
             >
-              {item?.date}
+              {getFormattedBengaliDate(item?.created_at)}
             </p>
           </div>
         </div>
