@@ -68,6 +68,7 @@ export default async function Home() {
   const reels = await fetchData(`reels/list?page=1`, {
     revalidate: 10,
   });
+  console.log("🚀 ~ Home ~ reels:", reels);
 
   return (
     <Container>
@@ -77,7 +78,7 @@ export default async function Home() {
           <FeaturedNewsCard item={leadNews?.data} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-2">
-          <ReelsContainer items={featuredItems?.reels} />
+          <ReelsContainer items={reels?.data} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-3 items-center justify-center">
           <SmallRecAdBanner />
