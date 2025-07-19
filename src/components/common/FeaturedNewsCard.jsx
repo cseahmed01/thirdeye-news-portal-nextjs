@@ -11,7 +11,7 @@ export default function FeaturedNewsCard({ item }) {
       ratio={16 / 9}
       className="bg-muted cursor-pointer group overflow-hidden select-none"
     >
-      <Link href={`article/${item?.id}`}>
+      <Link href={`/article/${item?.id}`}>
         <div className="relative w-full h-full">
           <Image
             src={item?.media?.media_url?.image?.original}
