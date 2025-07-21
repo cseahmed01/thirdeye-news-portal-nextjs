@@ -1,6 +1,6 @@
 "use client";
 
-import { getFormattedBengaliDate } from "@/lib/utils";
+import { fallbackImage, getFormattedBengaliDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { AspectRatio } from "../ui/aspect-ratio";
@@ -14,7 +14,7 @@ export default function FeaturedNewsCard({ item }) {
       <Link href={`/article/${item?.id}`}>
         <div className="relative w-full h-full">
           <Image
-            src={item?.media?.media_url?.image?.original}
+            src={item?.media?.media_url?.image?.original || fallbackImage}
             alt="Featured News Image"
             fill
             className="h-full w-full object-cover group-hover:scale-103 transition-transform duration-300"

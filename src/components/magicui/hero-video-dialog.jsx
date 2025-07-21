@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn, fallbackImage } from "@/lib/utils";
 import { Play, XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
@@ -72,7 +72,7 @@ export default function HeroVideoDialog({
     thumbnailSrc ||
     (youtubeId
       ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
-      : "/placeholder.svg?height=600&width=1000");
+      : fallbackImage);
 
   const renderVideoPlayer = () => {
     if (isYouTubeVideo) {
@@ -115,7 +115,7 @@ export default function HeroVideoDialog({
         onClick={() => setIsVideoOpen(true)}
       >
         <img
-          src={thumbnail || "/placeholder.svg"}
+          src={thumbnail || fallbackImage}
           alt={thumbnailAlt}
           width={440}
           height={245}

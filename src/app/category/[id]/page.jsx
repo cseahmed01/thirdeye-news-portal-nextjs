@@ -96,6 +96,7 @@ export default async function page({ params }) {
         <div className="md:col-span-7">
           <FeaturedNewsCard item={initialData?.data?.[0]} />
         </div>
+
         <div className="md:col-span-3 flex flex-col gap-3 items-center justify-center">
           <SquareAd />
           <SmallRecAdBanner />

@@ -9,7 +9,6 @@ import VideoCarousel from "./VideoCarousel";
 
 export default function ArticleBody({ article }) {
   console.log("🚀 ~ ArticleBody ~ article:", article);
-
   const extractImageUrls =
     article?.data?.externalmedia?.image?.map((media) => media?.original) || [];
 
@@ -46,21 +45,27 @@ export default function ArticleBody({ article }) {
         {getFormattedBengaliDate(article.data.published_date)}
       </p>
       <ShareOptions />
-      <div className="grid grid-cols-12 gap-6 mb-[30px] items-center">
-        <div className="lg:col-start-2 col-span-12 md:col-span-7">
-          {hasMainAudio ? (
-            <AudioPlayer src={article?.data?.media?.media_url?.audio?.url} />
-          ) : (
-            <ImageCarousel items={mergedImageUrls} />
-          )}
+      {(!!hasMainAudio ||
+        !!mergedImageUrls ||
+        !!article?.data?.externalmedia?.video) && (
+        <div className="grid grid-cols-12 gap-6 mb-[30px] items-center">
+          <div className="lg:col-start-2 col-span-12 md:col-span-7">
+            {hasMainAudio ? (
+              <AudioPlayer src={article?.data?.media?.media_url?.audio?.url} />
+            ) : (
+              <ImageCarousel items={mergedImageUrls} />
+            )}
+          </div>
+          <div className="col-span-12 md:col-span-3 flex flex-col items-center justify-between">
+            {article?.data?.externalmedia?.video?.length > 0 && (
+              <VideoCarousel
+                items={article?.data?.externalmedia?.video ?? []}
+              />
+            )}
+            <SquareAd />
+          </div>
         </div>
-        <div className="col-span-12 md:col-span-3 flex flex-col items-center justify-between">
-          {article?.data?.externalmedia?.video?.length > 0 && (
-            <VideoCarousel items={article?.data?.externalmedia?.video ?? []} />
-          )}
-          <SquareAd />
-        </div>
-      </div>
+      )}
       <div className="grid grid-cols-12 gap-9 mb-8 ">
         <div
           className="col-span-12 lg:col-span-9 text-lg text-wrap"
