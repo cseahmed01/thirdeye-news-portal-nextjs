@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function ImageCarousel({ items, className }) {
-  console.log("🚀 ~ ImageCarousel ~ items:", items)
   // const data = [
   //   {
   //     image: "https://images.unsplash.com/photo-1550533105-d412cbf5bfcc?q=80",
