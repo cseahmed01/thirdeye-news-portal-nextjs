@@ -4,6 +4,7 @@ import BannerNews from "@/components/common/BannerNews";
 import { Button } from "@/components/ui/button";
 import { fetchDataClient } from "@/lib/fetchData";
 import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function CategoryPageClient({ initialData, categoryId }) {
@@ -52,7 +53,9 @@ export default function CategoryPageClient({ initialData, categoryId }) {
     <>
       <div className="flex flex-col w-full gap-6 my-6">
         {allData.map((item, index) => (
-          <BannerNews key={`${index}`} item={item} fullWidth />
+          <Link href={`/article/${item.id}`} key={index} className="block">
+            <BannerNews item={item} fullWidth />
+          </Link>
         ))}
       </div>
       <div className="flex items-center justify-center my-4">

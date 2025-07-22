@@ -1,6 +1,5 @@
+import { baseUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
-
-const API_BASE_URL = "http://192.168.4.14:8000/api/v1";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -16,7 +15,7 @@ export async function GET(request) {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/articles/category/${categoryId}?page=${page}`,
+      `${baseUrl}/articles/category/${categoryId}?page=${page}`,
       {
         headers: {
           "X-Client-Key": "web-12345",

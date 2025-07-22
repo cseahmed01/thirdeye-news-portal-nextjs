@@ -13,41 +13,6 @@ import SpecialNews from "@/components/pages/home/SpecialNews";
 import { fetchData } from "@/lib/fetchData";
 
 export default async function Home() {
-  const featuredItems = {
-    reels: [
-      {
-        title: "Direct Video Example",
-        author: "Sample Author",
-        date: "May 22, 2025",
-        image:
-          "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
-        videoUrl:
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-      },
-      {
-        title: "YouTube Video Example",
-        author: "YouTube Creator",
-        date: "May 21, 2025",
-        youtubeId: "ogfYd705cRs",
-      },
-      {
-        title: "Another Direct Video",
-        author: "Video Creator",
-        date: "May 20, 2025",
-        image:
-          "https://images.unsplash.com/photo-1697911339694-c46ce894fe3f?q=80",
-        videoUrl:
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-      },
-      {
-        title: "Another YouTube Video",
-        author: "Content Creator",
-        date: "May 19, 2025",
-        youtubeId: "aqz-KE-bpKQ",
-      },
-    ],
-  };
-
   const leadNews = await fetchData(`articles/single-lead-news`, {
     revalidate: 10, // Revalidate every 10 seconds (ISR)
   });
@@ -68,7 +33,6 @@ export default async function Home() {
   const reels = await fetchData(`reels/list?page=1`, {
     revalidate: 10,
   });
-  console.log("🚀 ~ Home ~ reels:", reels);
 
   return (
     <Container>
