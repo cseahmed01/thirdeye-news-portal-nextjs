@@ -16,7 +16,6 @@ export default async function Home() {
   const leadNews = await fetchData(`articles/single-lead-news`, {
     revalidate: 10, // Revalidate every 10 seconds (ISR)
   });
-  console.log("🚀 ~ Home ~ leadNews:", leadNews);
 
   const latestNews = await fetchData(`articles/latest?page=1`, {
     revalidate: 10,
