@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { baseUrl } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, LucideEyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,6 +38,7 @@ export default function Page() {
 
   const [eye, setEye] = useState(true);
   const [confirmEye, setConfirmEye] = useState(true);
+  const router = useRouter();
 
   const onSubmit = async (data) => {
     try {
@@ -49,7 +52,7 @@ export default function Page() {
 
       if (!res.ok) throw new Error(result.message || "Signup failed");
 
-      alert("Signup successful!");
+      router.push("/auth/signin");
       reset();
     } catch (err) {
       alert(err.message);
