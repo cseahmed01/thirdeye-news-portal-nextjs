@@ -1,12 +1,11 @@
 "use client";
 import Container from "@/components/common/Container";
+import { Button } from "@/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export default function page() {
@@ -17,7 +16,7 @@ export default function page() {
 
     const timer = setInterval(() => {
       setCount((prev) => prev - 1);
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, [count]);
@@ -26,10 +25,10 @@ export default function page() {
     <Container>
       <div className="py-6 flex flex-col items-center justify-center">
         <div className="shadow-lg p-8 lg:p-16">
-          <div className=" max-w-[572px]">
+          <div className="max-w-[572px]">
             <h1 className="text-[32px] font-bold text-center">ওটিপি যাচাই</h1>
 
-            <p className="mb-[30px] mt-8 text-lg">
+            <p className="mb-[30px] mt-8 text-lg text-center">
               কোডটি abc@gmail.com-এ পাঠানো হয়েছে
             </p>
             <div className="flex justify-center items-center w-full">
