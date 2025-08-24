@@ -25,4 +25,4 @@ export function getFormattedBengaliDate(datetimeString) {
 
 export const fallbackImage = "/assets/fallback.webp";
 
-export const baseUrl = "http://192.168.4.85:8000/api/v1/";
+export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;

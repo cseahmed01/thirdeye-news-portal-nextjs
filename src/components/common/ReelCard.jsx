@@ -4,6 +4,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { cn, getFormattedBengaliDate } from "@/lib/utils";
 import { Play, Volume2, VolumeX } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function ReelCard({
@@ -552,9 +553,11 @@ export default function ReelCard({
           </h1>
           <div className="flex items-center justify-between w-full">
             {!onReelsPage && (
-              <button className="text-xxs cursor-pointer hover:underline">
-                আরও দেখুন
-              </button>
+              <Link href={`/reels`}>
+                <button className="text-xxs cursor-pointer hover:underline">
+                  আরও দেখুন
+                </button>
+              </Link>
             )}
             <p
               className={`${

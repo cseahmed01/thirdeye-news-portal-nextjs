@@ -1,4 +1,4 @@
-const baseUrl = "http://192.168.4.85:8000/api/v1/"; // Replace with your actual API base URL
+import { baseUrl } from "./utils";
 
 // Client-side fetch function for browser requests
 export async function fetchDataClient(endPoint, options = {}) {
