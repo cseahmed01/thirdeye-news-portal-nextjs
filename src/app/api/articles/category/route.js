@@ -18,7 +18,7 @@ export async function GET(request) {
       `${baseUrl}/articles/category/${categoryId}?page=${page}`,
       {
         headers: {
-          "X-Client-Key": "web-12345",
+          "X-Client-Key": process.env.API_CLIENT_KEY ?? "web-12345",
           "Content-Type": "application/json",
         },
       }

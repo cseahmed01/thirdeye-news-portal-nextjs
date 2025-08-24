@@ -52,7 +52,7 @@ export async function fetchDataClient(endPoint, options = {}) {
 export async function fetchData(endPoint, options = {}) {
   try {
     const headers = {
-      "X-Client-Key": "web-12345",
+      "X-Client-Key": process.env.API_CLIENT_KEY ?? "web-12345",
       ...options.headers, // allow custom headers
     };
 
