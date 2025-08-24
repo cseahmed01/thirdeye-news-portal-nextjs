@@ -283,7 +283,7 @@ function NavItem({ item, isOpen, onToggle }) {
                 })}
               />
             </button>
-          </div> 
+          </div>
 
           {isOpen &&
             hasSubmenu &&
