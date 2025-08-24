@@ -48,12 +48,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## 🔧 Environment Setup
 
-Create a `.env.local` file in the root directory:
+Create a `.env` file in the root directory:
 
 ```env
 # Required
-NEXT_PUBLIC_API_BASE_URL=http://192.168.4.11:8000/api/v1
-API_CLIENT_KEY=web-12345
+NEXT_PUBLIC_API_BASE_URL=YOUR_API_BASE_URL
+API_CLIENT_KEY=YOUR_API_CLIENT_KEY
 ```
 
 ## 📚 Documentation
