@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "tw-animate-css"; /* Optional if you use animations */
+
+@font-face {
+  font-family: "SutonnyMJ";
+  src: url("/fonts/SutonnyMJRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Backup English font (e.g., Inter, Arial, system-ui) */
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-brand: #182e6f;
+  --color-primary: #4d4d4d;
+  --color-border: #00000080;
+  --text-xxs: 0.5rem; /* 8px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-xsm: 0.625rem; /* 10px */
+  --text-md: 1rem; /* 16px */
+  --text-header: 2.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* font-family: "SutonnyMJ", sans-serif; */
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
