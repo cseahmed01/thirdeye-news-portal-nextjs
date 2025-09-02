@@ -8,7 +8,7 @@ export default function TopAppBar() {
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center pt-3 border-b-[0.5px] border-white">
         <div className="flex flex-col md:flex-row items-center gap-5">
           <Link href="/" className="">
-            <p className="text-[40px] font-bold">The Third Eye</p>
+            <p className="text-[40px] font-bold">The Third Eye 👁️</p>
           </Link>
           {/* <Select defaultValue="bangla">
             <SelectTrigger className="w-[100x] bg-transparent px-4 py-2 text-xs shadow-none border-none ring-0 focus:ring-0 focus:outline-none">
