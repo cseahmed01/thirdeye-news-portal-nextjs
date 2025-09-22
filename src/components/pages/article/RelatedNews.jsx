@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function RelatedNews({ data }) {
   return (
     <>
-      <SectionTitle title="সংক্রান্ত সংবাদ" bt notAll />
+      <SectionTitle title="সংক্রান্ত সংবাদ" bt />
       {data && data.length > 3 ? (
         <Carousel
           opts={{

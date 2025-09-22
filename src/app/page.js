@@ -39,36 +39,39 @@ export default async function Home() {
   });
 
   return (
-    <Container>
-      <LongAdBanner />
-      <div className="grid grid-cols-12 gap-5 min-h-[430px]">
-        <div className="col-span-12 md:col-span-12 lg:col-span-7 h-auto">
-          <FeaturedNewsCard item={leadNews?.data} />
+    <>
+      <Container>
+        <LongAdBanner />
+        <div className="grid grid-cols-12 gap-5 min-h-[430px]">
+          <div className="col-span-12 md:col-span-12 lg:col-span-7 h-auto">
+            <FeaturedNewsCard item={leadNews?.data} />
+          </div>
+          <div className="col-span-12 md:col-span-6 lg:col-span-2">
+            <ReelsContainer items={reels?.data} />
+          </div>
+          <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col items-center justify-center gap-6">
+            {/* <SmallRecAdBanner /> */}
+            <SmallRecAdBanner />
+            <SquareAd />
+            {/* <SquareAd /> */}
+          </div>
         </div>
-        <div className="col-span-12 md:col-span-6 lg:col-span-2">
-          <ReelsContainer items={reels?.data} />
+        <LatestNews data={latestNews?.data} />
+        <SectionTitle title="ব্রেকিং" />
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-6 lg:col-span-9">
+            <BreakingNews data={splittedBreakingNews} />
+          </div>
+          <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-between">
+            <LocalNewsFilter />
+            <SquareAd />
+            <SquareAd />
+          </div>
         </div>
-        <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col items-center justify-between">
-          <SmallRecAdBanner />
-          <SmallRecAdBanner />
-          <SquareAd />
-        </div>
-      </div>
-      <LatestNews data={latestNews?.data} />
-      <SectionTitle title="ব্রেকিং" />
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 md:col-span-6 lg:col-span-9">
-          <BreakingNews data={splittedBreakingNews} />
-        </div>
-        <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 items-center justify-between">
-          <LocalNewsFilter />
-          <SquareAd />
-          <SquareAd />
-        </div>
-      </div>
-      <VideoGallery data={videoGalleryData} />
-      <LongAdBanner />
+        <VideoGallery data={videoGalleryData} />
+        <LongAdBanner />
+      </Container>
       <SpecialNews data={specialNews?.data} />
-    </Container>
+    </>
   );
 }

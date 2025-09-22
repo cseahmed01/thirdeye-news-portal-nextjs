@@ -7,7 +7,7 @@ import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function CategoryPageClient({ initialData, categoryId }) {
+export default function TopicPageClient({ initialData, topicId }) {
   const [page, setPage] = useState(1);
   const [additionalData, setAdditionalData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function CategoryPageClient({ initialData, categoryId }) {
 
     try {
       const response = await fetchDataClient(
-        `articles/category/${categoryId}?page=${nextPage}`,
+        `articles/trending/${topicId}?page=${nextPage}`,
         {
           revalidate: 10,
         }

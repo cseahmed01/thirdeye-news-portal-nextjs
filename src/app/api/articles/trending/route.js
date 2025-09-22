@@ -3,25 +3,29 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const categoryId = searchParams.get("categoryId");
+  const topicId = searchParams.get("topicId");
   const page = searchParams.get("page") || "1";
 
-  if (!categoryId) {
+  if (!topicId) {
     return NextResponse.json(
-      { error: "Category ID is required" },
+      { error: "Topic ID is required" },
       { status: 400 }
     );
   }
 
   try {
     const response = await fetch(
-      `${baseUrl}articles/category/${categoryId}?page=${page}`,
+      `${baseUrl}articles/trending/${topicId}?page=${page}`,
       {
         headers: {
           "X-Client-Key": process.env.API_CLIENT_KEY ?? "web-12345",
           "Content-Type": "application/json",
         },
       }
+    );
+
+    console.log(
+      `Fetching from: ${baseUrl}articles/trending/${topicId}?page=${page}`
     );
 
     if (!response.ok) {

@@ -5,8 +5,8 @@ import CategoryTitle from "@/components/common/CategoryTitle";
 import Container from "@/components/common/Container";
 import FeaturedNewsCard from "@/components/common/FeaturedNewsCard";
 import VideoGallery from "@/components/common/VideoGallery";
-import CategoryPageClient from "@/components/pages/category/CategoryPageClient";
 import ReelsCarousel from "@/components/pages/home/ReelsCarousel";
+import TopicPageClient from "@/components/pages/topic/TopicPageClient";
 import { fetchData } from "@/lib/fetchData";
 
 // Generate metadata for SEO
@@ -14,26 +14,26 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
 
   try {
-    const data = await fetchData(`articles/category/${id}?page=1`, {
+    const data = await fetchData(`articles/trending/${id}?page=1`, {
       revalidate: 10,
     });
 
     return {
-      title: `${data?.meta?.category_name || "Category"} - News Portal`,
-      description: `Latest news and articles from ${
-        data?.meta?.category_name || "this category"
+      title: `${data?.meta?.topic_name || "Topic"} - News Portal`,
+      description: `Trending news and articles about ${
+        data?.meta?.topic_name || "this topic"
       }`,
       openGraph: {
-        title: `${data?.meta?.category_name || "Category"} - News Portal`,
-        description: `Latest news and articles from ${
-          data?.meta?.category_name || "this category"
+        title: `${data?.meta?.topic_name || "Topic"} - News Portal`,
+        description: `Trending news and articles about ${
+          data?.meta?.topic_name || "this topic"
         }`,
       },
     };
   } catch (error) {
     return {
-      title: "Category News - News Portal",
-      description: "Latest news and articles from this category",
+      title: "Trending News - News Portal",
+      description: "Latest trending news and articles from this topic",
     };
   }
 }
@@ -44,7 +44,7 @@ export default async function page({ params }) {
   // Fetch initial data server-side
   let initialData = null;
   try {
-    initialData = await fetchData(`articles/category/${id}?page=1`, {
+    initialData = await fetchData(`articles/trending/${id}?page=1`, {
       revalidate: 10,
     });
   } catch (error) {
@@ -61,9 +61,7 @@ export default async function page({ params }) {
 
   return (
     <Container>
-      <CategoryTitle
-        title={initialData?.meta?.category_name || "Category News"}
-      />
+      <CategoryTitle title={initialData?.meta?.topic_name || "Trending News"} />
       {initialData?.data?.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4.5 mb-6 items-center">
@@ -86,11 +84,11 @@ export default async function page({ params }) {
           <VideoGallery data={videoGalleryData} />
 
           {/* Client-side pagination component */}
-          <CategoryPageClient initialData={initialData} categoryId={id} />
+          <TopicPageClient initialData={initialData} topicId={id} />
         </>
       ) : (
         <p className="text-center text-lg md:text-xl lg:text-2xl font-medium py-20">
-          এই বিভাগে কোন খবর পাওয়া যায়নি।
+          এই বিষয়ে কোন খবর পাওয়া যায়নি।
         </p>
       )}
     </Container>

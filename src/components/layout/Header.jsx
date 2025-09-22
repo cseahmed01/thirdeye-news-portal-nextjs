@@ -1,6 +1,6 @@
 import { fetchData } from "@/lib/fetchData";
-import Navbar from "./Navbar";
 import TopAppBar from "./TopAppBar";
+import ResponsiveNavbar from "./responsive-navbar";
 
 export default async function Header() {
   const categories = await fetchData("categories", {
@@ -8,10 +8,16 @@ export default async function Header() {
     tags: ["categories"],
   });
 
+  const topics = await fetchData("trending-topics", {
+    cache: "no-store",
+    tags: ["topics"],
+  });
+
   return (
     <header className="bg-brand text-white">
       <TopAppBar />
-      <Navbar categories={categories?.data} />
+      {/* <Navbar categories={categories?.data} /> */}
+      <ResponsiveNavbar categories={categories} topics={topics} />
       {/* <FeaturedNavs /> */}
     </header>
   );

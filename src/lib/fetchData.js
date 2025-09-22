@@ -29,6 +29,29 @@ export async function fetchDataClient(endPoint, options = {}) {
           url = `/api/articles/category?categoryId=${categoryId}&page=1`;
         }
       }
+    } else if (endPoint.includes("articles/trending/")) {
+      // Extract topic ID and page from endpoint
+      const match = endPoint.match(/articles\/trending\/(\d+)\?page=(\d+)/);
+      if (match) {
+        const [, topicId, page] = match;
+        url = `/api/articles/trending?topicId=${topicId}&page=${page}`;
+      } else {
+        // Fallback for other patterns
+        const topicMatch = endPoint.match(/articles\/trending\/(\d+)/);
+        if (topicMatch) {
+          const [, topicId] = topicMatch;
+          url = `/api/articles/trending?topicId=${topicId}&page=1`;
+        }
+      }
+    } else if (endPoint.includes("videos/list")) {
+      // Extract page from videos endpoint
+      const match = endPoint.match(/videos\/list\?page=(\d+)/);
+      if (match) {
+        const [, page] = match;
+        url = `/api/videos?page=${page}`;
+      } else {
+        url = `/api/videos?page=1`;
+      }
     }
 
     if (!url) {
@@ -38,12 +61,61 @@ export async function fetchDataClient(endPoint, options = {}) {
     const res = await fetch(url, fetchOptions);
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch ${endPoint}: ${res.statusText}`);
+      // Check if this is a "no more data" scenario (for pagination)
+      // Don't throw errors for expected pagination end scenarios
+      if (
+        (res.status === 500 || res.status === 404) &&
+        endPoint.includes("page=")
+      ) {
+        // Return a standard "no data" response for pagination endpoints
+        return { data: [], meta: {} };
+      }
+
+      // Try to get more detailed error information for actual errors
+      let errorMessage = `Failed to fetch ${endPoint}: ${res.statusText}`;
+      try {
+        const errorData = await res.json();
+        if (errorData.error) {
+          errorMessage = errorData.error;
+        }
+      } catch (jsonError) {
+        // If we can't parse the error response, use the status text
+      }
+
+      const error = new Error(errorMessage);
+      error.status = res.status;
+      error.statusText = res.statusText;
+      throw error;
     }
 
-    return await res.json();
+    const result = await res.json();
+
+    // Handle backend returning null for no more data
+    if (result === null && endPoint.includes("page=")) {
+      return { data: [], meta: {} };
+    }
+
+    return result;
   } catch (error) {
-    console.error("fetchDataClient error:", error);
+    // Only log actual unexpected errors, not pagination end scenarios
+    if (
+      !(
+        error.message.includes("page=") &&
+        (error.status === 500 || error.status === 404)
+      )
+    ) {
+      console.error("fetchDataClient error:", error);
+    }
+
+    // Add more context to network errors
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      const networkError = new Error(
+        "Network error: Please check your internet connection"
+      );
+      networkError.isNetworkError = true;
+      throw networkError;
+    }
+
     throw error;
   }
 }

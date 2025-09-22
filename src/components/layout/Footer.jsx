@@ -5,14 +5,8 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white py-4">
       <Container>
-        <div className="flex flex-col md:flex-row gap-[100px] justify-between items-center border-b border-white">
+        <div className="flex flex-col md:flex-row justify-between items-center border-b border-white">
           <h1 className="text-4xl p-10 pl-0 font-bold">পত্রিকার নাম</h1>
-          {/* <p className="lg:w-3/5 text-justify">
-            আমরা একটি নির্ভরযোগ্য সংবাদপত্র যা সঠিক ও নিরপেক্ষ সংবাদ পরিবেশন
-            করে। দেশ-বিদেশের সর্বশেষ খবর, রাজনীতি, অর্থনীতি, খেলাধুলা, বিনোদন
-            এবং জীবনযাত্রার সকল ক্ষেত্রের গুরুত্বপূর্ণ সংবাদ আমাদের মাধ্যমে
-            জানুন। সত্যিকারের সাংবাদিকতার প্রতি আমাদের অঙ্গীকার।
-          </p> */}
           <div className="lg:w-3/5 flex flex-wrap items-center justify-center space-y-2">
             <Link href={"/"} className="border-r border-white/50 pr-3 pl-3">
               বিশ্ব সংবাদ
@@ -59,10 +53,7 @@ export default function Footer() {
             <Link href={"/"} className="border-r border-white/50 pr-3 pl-3">
               ক্রিকেট
             </Link>
-            <Link
-              href={"/"}
-              className="border-r border-white/50 pr-3 pl-3 pb-2"
-            >
+            <Link href={"/"} className="pl-3 pb-2">
               রিয়েল এস্টেট
             </Link>
           </div>
@@ -120,7 +111,7 @@ export default function Footer() {
               type="email"
               placeholder="Enter your email address"
             ></input>
-            <button className="py-4 w-[120px] bg-[rgba(161,161,161,1)] text-md cursor-pointer hover:bg-white hover:text-black transition-colors">
+            <button className="py-4 w-full mt-2 md:mt-0 md:w-[120px] bg-[rgba(161,161,161,1)] text-md cursor-pointer hover:bg-white hover:text-black transition-colors">
               Submit
             </button>
           </div>

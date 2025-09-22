@@ -98,7 +98,7 @@ export default function ArticleBody({ article }) {
         <p className="lg:text-md my-5">
           {getFormattedBengaliDate(data.published_date)}
         </p>
-        <ShareOptions />
+        <ShareOptions data={data} />
       </header>
 
       {/* Media Section - Only show if there's any media */}
@@ -141,12 +141,13 @@ export default function ArticleBody({ article }) {
           className="col-span-12 lg:col-span-9 text-lg text-wrap"
           dangerouslySetInnerHTML={{
             __html: data?.content || "<p>No content available</p>",
+            className: "font-bengali",
           }}
         />
         <aside className="col-span-12 lg:col-span-3 flex flex-col gap-4 items-center justify-center">
           <SquareAd />
-          {/* <SquareAd />
-          <SquareAd /> */}
+          <SquareAd />
+          <SquareAd />
         </aside>
       </main>
 

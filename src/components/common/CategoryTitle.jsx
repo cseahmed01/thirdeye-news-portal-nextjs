@@ -2,7 +2,7 @@ import { ListFilter, Search } from "lucide-react";
 
 export default function CategoryTitle({
   title,
-  sorting = true,
+  sorting = false,
   search = false,
 }) {
   return (

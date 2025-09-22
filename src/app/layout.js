@@ -1,11 +1,18 @@
+import GoToTop from "@/components/common/GoToTop";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { Inter } from "next/font/google";
+import { AuthProvider } from "@/hooks/useAuth";
+import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const bengali = Noto_Sans_Bengali({
+  subsets: ["bengali"],
+  variable: "--font-bengali",
 });
 
 export const metadata = {
@@ -16,12 +23,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex-grow">{children}</div>
-          <Footer />
-        </div>
+      <body className={`${inter.variable} ${bengali.variable} antialiased`}>
+        <AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <div className="flex-grow">{children}</div>
+            <Footer />
+          </div>
+          <GoToTop />
+        </AuthProvider>
       </body>
     </html>
   );

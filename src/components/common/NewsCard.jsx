@@ -29,7 +29,7 @@ export default function NewsCard({ item }) {
         >
           <div>
             <h1 className="text-md md:text-lg font-bold leading-snug inline">
-              {item?.header}
+              {item?.title}
               <span className="whitespace-nowrap inline-block ml-2 align-middle text-xxs font-normal">
                 — {item?.journalist_name}
               </span>

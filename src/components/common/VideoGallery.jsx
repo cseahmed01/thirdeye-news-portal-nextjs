@@ -14,7 +14,7 @@ import Autoplay from "embla-carousel-autoplay";
 export default function VideoGallery({ data }) {
   return (
     <>
-      <SectionTitle title="ভিডিও গ্যালারি" bt={true} />
+      <SectionTitle title="ভিডিও গ্যালারি" bt={true} href="/videos" />
       <Carousel
         plugins={[
           Autoplay({

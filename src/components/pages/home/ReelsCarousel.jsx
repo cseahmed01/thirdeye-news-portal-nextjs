@@ -92,13 +92,21 @@ export default function ReelsCarousel({
         </CarouselContent>
 
         {/* Navigation Controls */}
-        <div className="absolute top-[48%] md:top-[42%] left-0 flex items-center">
+        <div
+          className={`absolute ${
+            titleInside ? "top-[50%] md:top-[50%]" : "top-[48%] md:top-[42%]"
+          } left-0 flex items-center`}
+        >
           <CarouselPrevious
             className="relative left-0 translate-x-0 text-white cursor-pointer"
             variant="ghost"
           />
         </div>
-        <div className="absolute top-[48%] md:top-[42%] right-0 flex items-center">
+        <div
+          className={`absolute ${
+            titleInside ? "top-[50%] md:top-[50%]" : "top-[48%] md:top-[42%]"
+          } right-0 flex items-center`}
+        >
           <CarouselNext
             className="relative right-0 translate-x-0 text-white cursor-pointer"
             variant="ghost"

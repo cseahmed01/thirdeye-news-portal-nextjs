@@ -1,19 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css"; /* Optional if you use animations */
-
-@font-face {
-  font-family: "SutonnyMJ";
-  src: url("/fonts/SutonnyMJRegular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Backup English font (e.g., Inter, Arial, system-ui) */
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #000000;
-  --color-brand: #182e6f;
+  /* --color-brand: #1b36a2; */
+  --color-brand: #012075;
   --color-primary: #4d4d4d;
   --color-border: #00000080;
   --text-xxs: 0.5rem; /* 8px */
@@ -33,7 +24,27 @@
 
   body {
     @apply bg-background text-foreground;
-    /* font-family: "SutonnyMJ", sans-serif; */
+    font-family: var(--font-bengali), var(--font-inter), sans-serif;
+  }
+
+  /* Bengali text styling */
+  .bengali-text {
+    font-family: var(--font-bengali), sans-serif;
+  }
+
+  /* English text styling (default) */
+  .english-text {
+    font-family: var(--font-inter), sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-bengali {
+    font-family: var(--font-bengali), sans-serif;
+  }
+
+  .font-english {
+    font-family: var(--font-inter), sans-serif;
   }
 }
 

@@ -7,7 +7,7 @@ export default function BannerNews({ item, fullWidth = false }) {
       <div className="col-span-12 md:col-span-8 order-2 md:order-1">
         <div className="relative">
           <h1 className="text-xl md:text-4xl font-normal md:leading-[56px] inline">
-            {item?.header}
+            {item?.title}
             <span className="inline-block ml-2 align-middle text-xs font-normal whitespace-nowrap">
               — {item?.journalist_name}
             </span>

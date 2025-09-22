@@ -1,5 +1,6 @@
 import SquareAd from "@/components/common/AdBanners/SquareAd";
 import BannerNews from "@/components/common/BannerNews";
+import Container from "@/components/common/Container";
 import SectionTitle from "@/components/common/SectionTitle";
 import Link from "next/link";
 import SpecialFeatured from "./SpecialFeatured";
@@ -10,42 +11,49 @@ export default function SpecialNews({ data }) {
 
   return (
     <>
-      <SectionTitle title={"বিশেষ"} />
-      <div className="flex flex-col w-full gap-6">
-        {bannerData?.map((item, index) => (
-          <Link href={`/article/${item.id}`} key={index} className="w-full">
-            <BannerNews key={index} item={item} fullWidth />
-          </Link>
-        ))}
-      </div>
-      <Link
-        href={data?.[0] ? `/article/${data?.[0]?.id}` : "#"}
-        className="w-full"
-      >
-        <SpecialFeatured data={data?.[0]} />
-      </Link>
-      {data?.length > 5 && (
-        <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-6">
-          <div className="md:w-[35%] flex flex-col gap-10">
-            {data?.slice(5, 7).map((item, index) => (
-              <Link href={`/article/${item.id}`} key={index} className="w-full">
-                <SpecialNewsSmallCard item={item} />
-              </Link>
-            ))}
-          </div>
-          <div className="md:w-[30%] flex flex-col items-center justify-center gap-4">
-            <SquareAd />
-            {/* <SquareAd /> */}
-          </div>
-          <div className="md:w-[35%] flex flex-col gap-10">
-            {data?.slice(7, 9).map((item, index) => (
-              <Link href={`/article/${item.id}`} key={index} className="w-full">
-                <SpecialNewsSmallCard item={item} />
-              </Link>
-            ))}
-          </div>
+      <Container>
+        <SectionTitle title={"বিশেষ"} />
+        <div className="flex flex-col w-full gap-6">
+          {bannerData?.map((item, index) => (
+            <Link href={`/article/${item.id}`} key={index} className="w-full">
+              <BannerNews key={index} item={item} fullWidth />
+            </Link>
+          ))}
         </div>
-      )}
+      </Container>
+      <SpecialFeatured data={data?.[0]} />
+      <Container>
+        {data?.length > 5 && (
+          <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-6">
+            <div className="md:w-[35%] flex flex-col gap-10">
+              {data?.slice(5, 7).map((item, index) => (
+                <Link
+                  href={`/article/${item.id}`}
+                  key={index}
+                  className="w-full"
+                >
+                  <SpecialNewsSmallCard item={item} />
+                </Link>
+              ))}
+            </div>
+            <div className="md:w-[30%] flex flex-col items-center justify-center gap-4">
+              <SquareAd />
+              <SquareAd />
+            </div>
+            <div className="md:w-[35%] flex flex-col gap-10">
+              {data?.slice(7, 9).map((item, index) => (
+                <Link
+                  href={`/article/${item.id}`}
+                  key={index}
+                  className="w-full"
+                >
+                  <SpecialNewsSmallCard item={item} />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </Container>
     </>
   );
 }
